@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Olivia Delish Delivery</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+  header { text-align: center; margin-bottom: 30px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; }
+  th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+  th { background: #ff6600; color: white; }
+  tr:nth-child(even) { background: #f9f9f9; }
+  .status-pending { color: #FFA500; font-weight: bold; }
+  .status-out { color: #FF0000; font-weight: bold; }
+  .status-delivered { color: #008000; font-weight: bold; }
+  button { margin-top: 15px; padding: 8px 15px; border:none; border-radius:5px; background:#ff6600; color:white; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Admin Dashboard - Olivia Delish Delivery</h1>
+</header>
+
+<section>
+  <h2>All Orders</h2>
+  <table id="orders-table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Item</th>
+        <th>Amount</th>
+        <th>Time</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Orders will populate here -->
+    </tbody>
+  </table>
+  <button id="refresh-btn">Refresh Orders</button>
+</section>
+
+<script>
+  // ---- Replace this with your backend endpoint (Zapier, Airtable, etc.) ----
+  const ORDERS_API = "https://hooks.zapier.com/hooks/catch/20877751/334393813";
+
+  const tableBody = document.querySelector("#orders-table tbody");
+  const refreshBtn = document.getElementById("refresh-btn");
+
+  async function loadOrders() {
+    try {
+      const response = await fetch(ORDERS_API);
+      const orders = await response.json();
+      tableBody.innerHTML = ""; // clear previous rows
+
+      if (!Array.isArray(orders) || orders.length === 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = <td colspan="8" style="text-align:center;">No orders yet</td>;
+        tableBody.appendChild(tr);
+        return;
+      }
+
+      orders.forEach(order => {
+        const tr = document.createElement("tr");
+        let statusClass = "status-pending";
+        if(order.status?.toLowerCase() === "out for delivery") statusClass = "status-out";
+        if(order.status?.toLowerCase() === "delivered") statusClass = "status-delivered";
+
+        tr.innerHTML = `
+          <td>${order.orderId || ""}</td>
+          <td>${order.name || ""}</td>
+          <td>${order.phone || ""}</td>
+          <td>${order.address || ""}</td>
+          <td>${order.item || ""}</td>
+          <td>GH₵${order.amount || ""}</td>
+          <td>${order.time || ""}</td>
+          <td class="${statusClass}">${order.status || "Pending"}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+    } catch (err) {
+      console.error("Error loading orders:", err);
+      tableBody.innerHTML = <tr><td colspan="8" style="text-align:center;color:red;">Failed to load orders</td></tr>;
+    }
+  }
+
+  // Initial load
+  loadOrders();
+
+  // Refresh button
+  refreshBtn.addEventListener("click", loadOrders);
+
+  // Auto refresh every 10 seconds
+  setInterval(loadOrders, 10000);
+</script>
+
+</body>
+</html>

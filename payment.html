@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Complete Your Payment</h1>
+    </header>
+
+    <main style="text-align: center; padding: 50px;">
+        <h2>Your Order</h2>
+        <ul id="payment-cart-items"></ul>
+        <p>Total: GH₵<span id="payment-total">0</span></p>
+
+        <div id="customer-info" style="margin: 20px auto; max-width: 300px; text-align: left;">
+            <label for="customer-email">Email (Required for Receipt)</label>
+            <input type="email" id="customer-email" required style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px;">
+
+            <label for="customer-phone">Phone Number</label>
+            <input type="tel" id="customer-phone" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px;">
+
+            <label for="customer-address">Delivery Address (Required)</label>
+            <input type="text" id="customer-address" required style="width:100%; padding:8px; margin-bottom:20px; border:1px solid #ccc; border-radius:4px;">
+        </div>
+
+        <button id="pay-now" style="background:#ff6600; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">
+            Pay Now
+        </button>
+    </main>
+
+<script>
+    const total = localStorage.getItem("cartTotal") || 0;
+    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const paymentList = document.getElementById("payment-cart-items");
+    const amountInPesewas = Math.round(parseFloat(total) * 100);
+
+    document.getElementById("payment-total").textContent = total;
+
+    cartItems.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.count}x ${item.name} (GH₵${item.totalPrice.toFixed(2)})`;
+        paymentList.appendChild(li);
+    });
+
+    const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/25418411/uz267oi/s";
+
+    document.getElementById("pay-now").addEventListener("click", payWithPaystack);
+
+    function payWithPaystack() {
+        const customerEmail = document.getElementById('customer-email').value.trim();
+        const customerPhone = document.getElementById('customer-phone').value.trim();
+        const customerAddress = document.getElementById('customer-address').value.trim();
+
+        if (!customerEmail) { alert("Email is required"); return; }
+        if (!customerAddress) { alert("Address is required"); return; }
+        if (amountInPesewas <= 0) { alert("Cart is empty"); return; }
+
+        let handler = PaystackPop.setup({
+            key: 'pk_live_6b1543665f3fd0ec08938ff844c42f571fc6d089',
+            email: customerEmail,
+            amount: amountInPesewas,
+            currency: 'GHS',
+            ref: 'OLIVIA_' + Math.floor(Math.random() * 1000000000),
+            metadata: {
+                custom_fields: [
+                    { display_name: "Phone", variable_name: "phone_number", value: customerPhone }
+                ]
+            },
+
+            callback: function(response){
+    const timestamp = new Date().toLocaleString();
+    cartItems.forEach(item => {
+        fetch(ZAPIER_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                orderId: response.reference,
+                name: item.name,
+                phone: customerPhone,
+                address: customerAddress,
+                item: item.name,
+                amount: item.totalPrice,
+                time: timestamp
+            })
+        });
+    });
+
+    alert('Payment Successful! Reference: ' + response.reference);
+    localStorage.removeItem("cartItems");
+    localStorage.removeItem("cartTotal");
+
+    // CORRECT REDIRECT
+    window.location.href = "payment-success.html?reference=" + response.reference;
+},
+
+            onClose: function(){ 
+                alert('Transaction cancelled.'); 
+            }
+        });
+
+        handler.openIframe();
+    }
+</script>
+</body>
+</html>
