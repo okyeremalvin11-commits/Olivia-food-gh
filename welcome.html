@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — Olivia Delish</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Logo */
+  .logo {
+    display: block;
+    margin: 20px auto;
+    width: 180px;
+  }
+
+  /* Abstract Shapes */
+  .shape-yellow, .shape-orange-top, .shape-orange-bottom {
+    position: absolute;
+    z-index: 0;
+  }
+  .shape-yellow {
+    top: -100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    background: #FFD700;
+    border-radius: 50% 45% 55% 50%;
+  }
+  .shape-orange-top {
+    top: -50px;
+    right: -150px;
+    width: 400px;
+    height: 250px;
+    background: #FFA500;
+    border-radius: 60% 40% 30% 70%;
+    transform: rotate(-20deg);
+  }
+  .shape-orange-bottom {
+    bottom: -100px;
+    left: -150px;
+    width: 400px;
+    height: 250px;
+    background: #FFA500;
+    border-radius: 70% 30% 60% 40%;
+    transform: rotate(15deg);
+  }
+
+  /* Stars */
+  .star {
+    position: absolute;
+    color: white;
+    font-size: 1em;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+    user-select: none;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0.2; transform: translate(0,0) rotate(0deg); }
+    50% { opacity: 1; transform: translate(1px,-1px) rotate(2deg); }
+    100% { opacity: 0.3; transform: translate(-1px,1px) rotate(-2deg); }
+  }
+
+  /* Main content */
+  .content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .content h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    color: #FFA500;
+  }
+  .content p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto 1em;
+    color: #ddd;
+  }
+  .menu-button {
+    background-color: #FFD700;
+    color: #1a1a1a;
+    padding: 12px 28px;
+    font-size: 1em;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    transition: background 0.3s ease;
+  }
+  .menu-button:hover {
+    background-color: #FFC300;
+  }
+
+  /* Floating dishes */
+  .dish-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .dish {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #FFA500;
+    animation: float 3s ease-in-out infinite alternate;
+  }
+  .dish img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* Contact & Social */
+  .contact-info {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1em;
+    color: #ddd;
+  }
+  .social-links {
+    margin: 10px 0;
+  }
+  .social-links a {
+    text-decoration: none;
+    color: #FFD700;
+    margin: 0 10px;
+    font-weight: bold;
+  }
+
+  /* Services */
+  .services {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #ddd;
+  }
+  .services span {
+    display: block;
+    margin: 5px 0;
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <img src="images/logo.png" alt="Olivia Delish Delivery" class="logo">
+
+  <!-- Abstract shapes -->
+  <div class="shape-yellow"></div>
+  <div class="shape-orange-top"></div>
+  <div class="shape-orange-bottom"></div>
+
+  <!-- Stars -->
+  <div class="star" style="top:20px; left:50px;">⭐</div>
+  <div class="star" style="top:100px; left:200px;">⭐</div>
+  <div class="star" style="top:300px; left:400px;">⭐</div>
+  <div class="star" style="top:250px; left:150px;">⭐</div>
+  <div class="star" style="top:50px; left:350px;">⭐</div>
+  <div class="star" style="top:400px; left:100px;">⭐</div>
+  <div class="star" style="top:500px; left:300px;">⭐</div>
+  <div class="star" style="top:200px; left:500px;">⭐</div>
+
+  <!-- Main content -->
+  <div class="content">
+    <h1>Welcome to Olivia Delish</h1>
+    <p>Delicious meals delivered to your door, prepared with love and care by experienced chefs at Olivia Delish.</p>
+
+    <button class="menu-button" onclick="window.location.href='index.html'">View Our Menu</button>
+
+    <!-- Dishes -->
+    <div class="dish-gallery">
+      <div class="dish"><img src="images/waakye.jpg" alt="Waakye"></div>
+      <div class="dish"><img src="images/jollof-spaghetti.jpg" alt="Jollof Spaghetti"></div>
+      <div class="dish"><img src="images/salad-mix.jpg" alt="Salad Mix"></div>
+    </div>
+
+    <!-- Contact & Social -->
+    <div class="contact-orders">
+  <p>Contact Us: <a href="tel:+233592303936">+233 592 303 936</a></p>
+  
+  <div class="social-links">
+    <a href="#" class="social-icon">YouTube</a>
+    <a href="#" class="social-icon">Instagram</a>
+    <a href="#" class="social-icon">WhatsApp</a>
+  </div>
+
+  <p class="orders-info">
+    We take orders for: Weddings, Birthdays, Corporate Events, etc.
+  </p>
+</div>
+
+</body>
+</html>

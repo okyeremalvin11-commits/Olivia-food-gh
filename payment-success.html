@@ -1,71 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Successful</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Olivia Delish</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #0b1d3a; /* Deep navy blue */
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+        }
 
-    .box {
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 380px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+        .logo {
+            height: 80px;
+            margin-bottom: 20px;
+        }
 
-    h2 {
-      color: #2b8a3e;
-    }
+        h1 {
+            font-size: 2.5em;
+            color: #FFA500; /* Orange */
+            margin-bottom: 10px;
+        }
 
-    p {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 20px;
-    }
+        p {
+            font-size: 1.2em;
+            color: #fff;
+            margin-bottom: 30px;
+        }
 
-    .call-btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      background: #008cff;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: bold;
-    }
+        .reference-box {
+            background-color: #1a2b4f;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #FFD700; /* Yellow */
+        }
 
-    .call-btn:hover {
-      background: #006fd3;
-    }
-  </style>
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: #FFA500;
+            color: #1a1a1a;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #FFD700;
+        }
+    </style>
 </head>
 <body>
+    <img src="images/logo.png" alt="Olivia Delish Logo" class="logo">
+    <h1>Payment Successful!</h1>
+    <p>Thank you for your order. Your payment has been received successfully.</p>
+    <div class="reference-box">
+        Reference: <span id="reference">---</span>
+    </div>
 
-  <div class="box">
-    <h2>🎉 Payment Successful!</h2>
-    <p>Thank you for your order at Olivia Delish.<br>
-       Please call us now to confirm your delivery.</p>
+    <p>We will contact you shortly regarding your delivery.</p>
+    <a href="index.html" class="btn">Back to Menu</a>
 
-    <!-- CALL BUTTON -->
-    <a class="call-btn" href="tel:+233592303936">
-      📞 Call Us Now
-    </a>
-  </div>
-
+    <script>
+        // Get reference from URL query string
+        const params = new URLSearchParams(window.location.search);
+        const ref = params.get('reference') || '---';
+        document.getElementById('reference').textContent = ref;
+    </script>
 </body>
 </html>

@@ -1,39 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Page</title>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Complete Your Payment</h1>
-    </header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olivia Delish Payment</title>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+    /* Variables */
+    :root {
+      --navy: #0b1d3a;
+      --orange: #FFA500;
+      --yellow: #FFD700;
+      --white: #fff;
+      --gray: #ccc;
+    }
 
-    <main style="text-align: center; padding: 50px;">
-        <h2>Your Order</h2>
-        <ul id="payment-cart-items"></ul>
-        <p>Total: GH₵<span id="payment-total">0</span></p>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--navy);
+      color: var(--white);
+    }
 
-        <div id="customer-info" style="margin: 20px auto; max-width: 300px; text-align: left;">
-            <label for="customer-email">Email (Required for Receipt)</label>
-            <input type="email" id="customer-email" required style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px;">
+    a {
+      text-decoration: none;
+    }
 
-            <label for="customer-phone">Phone Number</label>
-            <input type="tel" id="customer-phone" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px;">
+    /* Header */
+    .payment-header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      color: var(--navy);
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+    }
 
-            <label for="customer-address">Delivery Address (Required)</label>
-            <input type="text" id="customer-address" required style="width:100%; padding:8px; margin-bottom:20px; border:1px solid #ccc; border-radius:4px;">
-        </div>
+    .payment-header .logo {
+      height: 80px;
+      margin-bottom: 10px;
+    }
 
-        <button id="pay-now" style="background:#ff6600; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">
-            Pay Now
-        </button>
-    </main>
+    .payment-header h1 {
+      margin: 5px 0;
+      font-size: 2.5em;
+    }
 
-<script>
+    .payment-header .subtitle {
+      font-size: 1.1em;
+      color: var(--navy);
+    }
+
+    /* Main */
+    .payment-main {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    /* Order Summary */
+    .order-summary {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+    }
+
+    .order-summary h2 {
+      color: var(--orange);
+      margin-bottom: 15px;
+    }
+
+    .cart-items {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 15px;
+    }
+
+    .cart-items li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 1.3em;
+      color: var(--yellow);
+    }
+
+    /* Customer Info */
+    .customer-info {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+    }
+
+    .customer-info h2 {
+      color: var(--orange);
+      margin-bottom: 15px;
+    }
+
+    .customer-info input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid var(--gray);
+      font-size: 1em;
+    }
+
+    /* Pay Button */
+    .pay-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: var(--white);
+      background: var(--orange);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .pay-btn:hover {
+      background: var(--yellow);
+      color: var(--navy);
+    }
+
+    /* Footer */
+    .payment-footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: var(--orange);
+      color: var(--navy);
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: var(--yellow);
+      color: var(--navy);
+    }
+  </style>
+  <header style="text-align:center; padding:20px;">
+    <img src="images/logo.png" alt="Olivia Delish Logo" class="logo" style="height:70px; margin-bottom:10px;">
+    <h1>Complete Your Payment</h1>
+    <p class="subtitle">Review your order and provide your delivery details</p>
+</header>
+
+  <main class="payment-main">
+    <section class="order-summary">
+      <h2>Order Summary</h2>
+      <ul id="payment-cart-items" class="cart-items"></ul>
+      <p class="total">Total: GH₵<span id="payment-total">0.00</span></p>
+    </section>
+
+    <section class="customer-info">
+      <h2>Customer Information</h2>
+      <form id="customer-form">
+        <label for="customer-email">Email (Required for Receipt)</label>
+        <input type="email" id="customer-email" required placeholder="you@example.com">
+
+        <label for="customer-phone">Phone Number</label>
+        <input type="tel" id="customer-phone" placeholder="024 XXXX XXX">
+
+        <label for="customer-address">Delivery Address (Required)</label>
+        <input type="text" id="customer-address" required placeholder="Enter delivery address">
+      </form>
+    </section>
+
+    <button id="pay-now" class="pay-btn">Pay Now</button>
+  </main>
+
+  <footer class="payment-footer">
+    <p>Thank you for choosing Olivia Delish Delivery 🍽</p>
+    <a href="index.html" class="back-btn">Back to Menu</a>
+  </footer>
+
+  <script>
     const total = localStorage.getItem("cartTotal") || 0;
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     const paymentList = document.getElementById("payment-cart-items");
@@ -73,30 +229,29 @@
             },
 
             callback: function(response){
-    const timestamp = new Date().toLocaleString();
-    cartItems.forEach(item => {
-        fetch(ZAPIER_WEBHOOK_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                orderId: response.reference,
-                name: item.name,
-                phone: customerPhone,
-                address: customerAddress,
-                item: item.name,
-                amount: item.totalPrice,
-                time: timestamp
-            })
-        });
-    });
+                const timestamp = new Date().toLocaleString();
+                cartItems.forEach(item => {
+                    fetch(ZAPIER_WEBHOOK_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            orderId: response.reference,
+                            name: item.name,
+                            phone: customerPhone,
+                            address: customerAddress,
+                            item: item.name,
+                            amount: item.totalPrice,
+                            time: timestamp
+                        })
+                    });
+                });
 
-    alert('Payment Successful! Reference: ' + response.reference);
-    localStorage.removeItem("cartItems");
-    localStorage.removeItem("cartTotal");
+                alert('Payment Successful! Reference: ' + response.reference);
+                localStorage.removeItem("cartItems");
+                localStorage.removeItem("cartTotal");
 
-    // CORRECT REDIRECT
-    window.location.href = "payment-success.html?reference=" + response.reference;
-},
+                window.location.href = "payment-success.html?reference=" + response.reference;
+            },
 
             onClose: function(){ 
                 alert('Transaction cancelled.'); 
@@ -105,6 +260,6 @@
 
         handler.openIframe();
     }
-</script>
+  </script>
 </body>
 </html>

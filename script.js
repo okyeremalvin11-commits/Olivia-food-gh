@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return acc;
         }, []);
 
+        // Save to localStorage for payment page
         localStorage.setItem("cartItems", JSON.stringify(groupedCart));
         localStorage.setItem("cartTotal", total.toFixed(2));
 
