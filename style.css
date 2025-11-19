@@ -1,194 +1,140 @@
-/* Variables */
 :root {
-    --deep-navy: #0b1d3a;
-    --orange: #FFA500;
-    --white: #fff;
-    --light-gray: #ddd;
+  --orange: #FFA500;
+  --yellow: #FFD700;
+  --navy: #0b1d3a;
+  --white: #fff;
+  --light-gray: #ddd;
 }
 
-/* Global Styles */
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--deep-navy);
-    color: var(--white);
-    overflow-x: hidden;
-    position: relative;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
 }
 
-/* Stars in Background */
-.star {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: var(--white);
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    z-index: 0;
-}
-.star:nth-child(1) { top: 20%; left: 15%; }
-.star:nth-child(2) { top: 50%; left: 80%; }
-.star:nth-child(3) { top: 75%; left: 30%; }
-.star:nth-child(4) { top: 10%; left: 60%; }
-.star:nth-child(5) { top: 85%; left: 70%; }
-
-/* Header & Logo */
 header {
-    text-align: center;
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-}
-header img.logo {
-    height: 60px;
-    display: block;
-    margin: 0 auto 10px;
-}
-header h1 {
-    color: var(--orange);
-    font-size: 2.5em;
-    margin: 0;
+  text-align: center;
+  padding: 20px;
 }
 
-/* Menu Grid */
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 10px;
-    position: relative;
-    z-index: 1;
+header .logo {
+  width: 120px;
+  margin-bottom: 10px;
 }
 
-/* Menu Item Cards */
-.menu-card {
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
-    padding: 15px;
-    display: flex;
+header h1, header h2 {
+  color: var(--orange);
+  margin: 0;
+}
+
+header h1 { font-size: 2.5em; }
+header h2 { font-size: 2em; }
+
+header .subtitle {
+  color: var(--white);
+  margin-top: 10px;
+  font-size: 1.1em;
+}
+
+.menu-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.menu-section {
+  margin-bottom: 40px;
+}
+
+.menu-section h2 {
+  color: var(--orange);
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--orange);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.menu-item img.food-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.menu-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-details .label {
+  background: var(--orange);
+  color: var(--navy);
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.menu-details .description {
+  color: var(--light-gray);
+  margin-bottom: 8px;
+}
+
+.menu-details .price {
+  font-weight: bold;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+
+.add-to-cart, #checkout-btn {
+  background: var(--orange);
+  color: var(--navy);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: fit-content;
+  transition: 0.3s;
+}
+
+.add-to-cart:hover, #checkout-btn:hover {
+  background: var(--yellow);
+}
+
+#cart-items {
+  list-style: none;
+  padding: 0;
+}
+
+#total {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+  .menu-item {
     flex-direction: column;
-    align-items: center;
-    position: relative;
-    transition: transform 0.2s;
-}
-.menu-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Circular Image */
-.menu-card img.food-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--orange);
-    margin-bottom: -10px; /* touches the title */
-}
-
-/* Item Title & Price */
-.menu-card .title {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: var(--orange);
-    margin: 0;
-}
-.menu-card .price {
-    font-weight: bold;
-    color: var(--orange);
-    margin: 5px 0 10px;
-}
-
-/* Description */
-.menu-card .description {
-    color: var(--light-gray);
-    text-align: center;
-    font-size: 0.95em;
-    margin-bottom: 15px;
-}
-
-/* Add to Cart Button */
-.menu-card .add-to-cart {
-    background-color: var(--orange);
-    color: var(--deep-navy);
-    border: none;
-    border-radius: 25px;
-    padding: 10px 25px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
-}
-.menu-card .add-to-cart:hover {
-    background-color: #e69400;
-}
-
-/* Section Titles (Meats, Special Combos, Staples/Sides) */
-.section-title {
-    text-align: center;
-    font-size: 2em;
-    color: var(--orange);
-    margin: 50px 0 20px;
-}
-
-/* Decorative Curves */
-.curve {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background-color: var(--orange);
-    border-radius: 50%;
-    z-index: 0;
-}
-.curve.top-left { top: -150px; left: -150px; }
-.curve.bottom-right { bottom: -150px; right: -150px; }
-
-/* Cart Section */
-#cart {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    max-width: 600px;
-    margin: 50px auto;
-    border-radius: 20px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-#cart ul {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 15px;
-}
-#cart p#total {
-    font-weight: bold;
-    color: var(--orange);
-    margin-bottom: 15px;
-}
-#checkout-btn {
-    background-color: var(--orange);
-    color: var(--deep-navy);
-    border: none;
-    border-radius: 25px;
-    padding: 10px 25px;
-    cursor: pointer;
-    font-weight: bold;
-}
-#checkout-btn:hover {
-    background-color: #e69400;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-    .menu-card img.food-photo {
-        width: 100px;
-        height: 100px;
-    }
-    .menu-card .title {
-        font-size: 1.1em;
-    }
-    .menu-card .price {
-        font-size: 1em;
-    }
-    header h1 {
-        font-size: 2em;
-    }
+    align-items: flex-start;
+  }
+  .menu-item img.food-photo {
+    margin-bottom: 10px;
+  }
 }

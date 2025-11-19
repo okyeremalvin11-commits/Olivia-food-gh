@@ -1,246 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Olivia Delish Delivery</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — Olivia Delish</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* --- Variables --- */
+  :root {
+    --orange: #FFA500;
+    --yellow: #FFD700;
+    --navy: #0b1d3a;
+    --white: #fff;
+    --light-gray: #ddd;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Logo */
+  .logo {
+    display: block;
+    margin: 20px auto;
+    width: 180px;
+  }
+
+  /* Abstract shapes */
+  .shape-yellow, .shape-orange-top, .shape-orange-bottom {
+    position: absolute;
+    z-index: 0;
+  }
+  .shape-yellow {
+    top: -100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    background: var(--yellow);
+    border-radius: 50% 45% 55% 50%;
+  }
+  .shape-orange-top {
+    top: -50px;
+    right: -150px;
+    width: 400px;
+    height: 250px;
+    background: var(--orange);
+    border-radius: 60% 40% 30% 70%;
+    transform: rotate(-20deg);
+  }
+  .shape-orange-bottom {
+    bottom: -100px;
+    left: -150px;
+    width: 400px;
+    height: 250px;
+    background: var(--orange);
+    border-radius: 70% 30% 60% 40%;
+    transform: rotate(15deg);
+  }
+
+  /* Stars */
+  .star {
+    position: absolute;
+    color: white;
+    font-size: 1em;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+    user-select: none;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0.2; transform: translate(0,0) rotate(0deg); }
+    50% { opacity: 1; transform: translate(1px,-1px) rotate(2deg); }
+    100% { opacity: 0.3; transform: translate(-1px,1px) rotate(-2deg); }
+  }
+
+  /* Main content */
+  .content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .content h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    color: var(--orange);
+  }
+  .content p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto 1em;
+    color: var(--light-gray);
+  }
+  .menu-button {
+    background-color: var(--yellow);
+    color: var(--navy);
+    padding: 12px 28px;
+    font-size: 1em;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    transition: background 0.3s ease;
+  }
+  .menu-button:hover {
+    background-color: #FFC300;
+  }
+
+  /* Floating dishes */
+  .dish-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .dish {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--orange);
+    animation: float 3s ease-in-out infinite alternate;
+  }
+  .dish img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* Contact & Social */
+  .contact-info {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1em;
+    color: var(--light-gray);
+  }
+  .social-links {
+    margin: 10px 0;
+  }
+  .social-links a {
+    text-decoration: none;
+    color: var(--yellow);
+    margin: 0 10px;
+    font-weight: bold;
+  }
+
+  /* Responsive */
+  @media(max-width: 768px) {
+    .dish-gallery {
+      gap: 10px;
+    }
+  }
+</style>
 </head>
 <body>
-  <!-- Decorative Curves -->
-  <div class="curve top-left"></div>
-  <div class="curve bottom-right"></div>
+
+  <!-- Logo -->
+  <img src="images/logo.png" alt="Olivia Delish Delivery" class="logo">
+
+  <!-- Abstract shapes -->
+  <div class="shape-yellow"></div>
+  <div class="shape-orange-top"></div>
+  <div class="shape-orange-bottom"></div>
 
   <!-- Stars -->
-  <div class="star"></div>
-  <div class="star"></div>
-  <div class="star"></div>
-  <div class="star"></div>
-  <div class="star"></div>
+  <div class="star" style="top:20px; left:50px;">⭐</div>
+  <div class="star" style="top:100px; left:200px;">⭐</div>
+  <div class="star" style="top:300px; left:400px;">⭐</div>
+  <div class="star" style="top:250px; left:150px;">⭐</div>
+  <div class="star" style="top:50px; left:350px;">⭐</div>
+  <div class="star" style="top:400px; left:100px;">⭐</div>
+  <div class="star" style="top:500px; left:300px;">⭐</div>
+  <div class="star" style="top:200px; left:500px;">⭐</div>
 
-  <!-- Header with Logo -->
-  <header>
-    <img src="images/logo.png" alt="Olivia Delish Logo" class="logo" />
-    <h1>Olivia Delish Delivery</h1>
-  </header>
+  <!-- Main content -->
+  <div class="content">
+    <h1>Welcome to Olivia Delish</h1>
+    <p>Delicious meals delivered to your door, prepared with love and care by experienced chefs.</p>
 
-  <!-- Menu Grid -->
-  <section class="menu-grid">
+    <button class="menu-button" onclick="window.location.href='menu.html'">View Our Menu</button>
 
-    <!-- Main Meals -->
-    <h2 class="section-title">Main Meals</h2>
-
-    <div class="menu-card">
-      <img src="images/jollof_rice.jpg" alt="Jollof Rice" class="food-photo" />
-      <p class="title">Jollof Rice</p>
-      <p class="description">Spicy Ghanaian Jollof rice served with your choice of meat or stew.</p>
-      <p class="price">GH₵10</p>
-      <button class="add-to-cart">Add to Cart</button>
+    <!-- Floating dishes -->
+    <div class="dish-gallery">
+      <div class="dish"><img src="images/waakye.jpg" alt="Waakye"></div>
+      <div class="dish"><img src="images/jollof-spaghetti.jpg" alt="Jollof Spaghetti"></div>
+      <div class="dish"><img src="images/salad-mix.jpg" alt="Salad Mix"></div>
+      <div class="dish"><img src="images/fried-rice.jpg" alt="Fried Rice"></div>
     </div>
 
-    <div class="menu-card">
-      <img src="images/plain_rice.jpg" alt="Plain Rice" class="food-photo" />
-      <p class="title">Plain Rice</p>
-      <p class="description">Simple steamed rice, perfect to combine with stews or meats.</p>
-      <p class="price">GH₵8</p>
-      <button class="add-to-cart">Add to Cart</button>
+    <!-- Contact & Social -->
+    <div class="contact-info">
+      <p>Contact Us: <a href="tel:+233592303936">+233 592 303 936</a></p>
+      <div class="social-links">
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp</a>
+      </div>
+      <p>We take orders for: Weddings, Birthdays, Corporate Events, etc.</p>
     </div>
+  </div>
 
-    <div class="menu-card">
-      <img src="images/jollof_spaghetti.jpg" alt="Jollof Spaghetti" class="food-photo" />
-      <p class="title">Jollof Spaghetti</p>
-      <p class="description">Ghanaian style spicy spaghetti for a flavorful meal.</p>
-      <p class="price">GH₵12</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/waakye.jpg" alt="Waakye" class="food-photo" />
-      <p class="title">Waakye</p>
-      <p class="description">Traditional Ghanaian waakye with beans and rice served with sides.</p>
-      <p class="price">GH₵15</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/fried_rice.jpg" alt="Fried Rice" class="food-photo" />
-      <p class="title">Fried Rice</p>
-      <p class="description">Ghanaian fried rice with mixed vegetables, served with protein of choice.</p>
-      <p class="price">GH₵14</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/ampesi.jpg" alt="Ampesi" class="food-photo" />
-      <p class="title">Ampesi</p>
-      <p class="description">Mashed yam or plantain served with your choice of stew or meat.</p>
-      <p class="price">GH₵12</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/kontomire_stew.jpg" alt="Kontomire Stew" class="food-photo" />
-      <p class="title">Kontomire Stew</p>
-      <p class="description">Spinach stew prepared with traditional Ghanaian spices.</p>
-      <p class="price">GH₵10</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/beans_stew.jpg" alt="Beans Stew" class="food-photo" />
-      <p class="title">Beans Stew</p>
-      <p class="description">Hearty beans stew cooked in a rich tomato sauce.</p>
-      <p class="price">GH₵10</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <!-- Special Combinations -->
-    <h2 class="section-title">Special Combinations</h2>
-
-    <div class="menu-card">
-      <img src="images/ampesi_kontomire.jpg" alt="Ampesi with Kontomire Stew" class="food-photo" />
-      <p class="title">Ampesi with Kontomire Stew</p>
-      <p class="description">Ampesi served with nutritious kontomire stew.</p>
-      <p class="price">GH₵15</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/ampesi_beans.jpg" alt="Ampesi with Beans" class="food-photo" />
-      <p class="title">Ampesi with Beans</p>
-      <p class="description">Ampesi served with delicious beans stew.</p>
-      <p class="price">GH₵15</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/ampesi_akushi.jpg" alt="Ampesi with Akushi Stew" class="food-photo" />
-      <p class="title">Ampesi with Akushi Stew</p>
-      <p class="description">Ampesi served with flavorful Akushi stew.</p>
-      <p class="price">GH₵15</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <!-- Staples / Sides -->
-    <h2 class="section-title">Staples & Sides</h2>
-
-    <div class="menu-card">
-      <img src="images/garri.jpg" alt="Garri" class="food-photo" />
-      <p class="title">Garri</p>
-      <p class="description">Cassava granules served as a staple side for meals.</p>
-      <p class="price">GH₵5</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/spaghetti.jpg" alt="Spaghetti" class="food-photo" />
-      <p class="title">Spaghetti</p>
-      <p class="description">Plain spaghetti, perfect as a side or main base.</p>
-      <p class="price">GH₵6</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/mix_salad.jpg" alt="Mix Salad" class="food-photo" />
-      <p class="title">Mix Salad</p>
-      <p class="description">Fresh salad with tomatoes, lettuce, cucumber, and carrot.</p>
-      <p class="price">GH₵7</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <!-- Available Meats -->
-    <h2 class="section-title">Available Meats</h2>
-
-    <div class="menu-card">
-      <img src="images/wole.jpg" alt="Wɔle" class="food-photo" />
-      <p class="title">Wɔle</p>
-      <p class="price">GH₵12</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/casava_fish.jpg" alt="Casava Fish" class="food-photo" />
-      <p class="title">Casava Fish</p>
-      <p class="price">GH₵18</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/pola_fish.jpg" alt="Pola Fish" class="food-photo" />
-      <p class="title">Pola Fish</p>
-      <p class="price">GH₵18</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/cow_meat.jpg" alt="Cow Meat" class="food-photo" />
-      <p class="title">Cow Meat</p>
-      <p class="price">GH₵20</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/sausage.jpg" alt="Sausage" class="food-photo" />
-      <p class="title">Sausage</p>
-      <p class="price">GH₵10</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/egg.jpg" alt="Egg" class="food-photo" />
-      <p class="title">Egg</p>
-      <p class="price">GH₵5</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/chicken.jpg" alt="Chicken" class="food-photo" />
-      <p class="title">Chicken</p>
-      <p class="price">GH₵18</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <!-- Available Stews -->
-    <h2 class="section-title">Available Stews</h2>
-
-    <div class="menu-card">
-      <img src="images/egusi.jpg" alt="Egusi Stew" class="food-photo" />
-      <p class="title">Egusi Stew</p>
-      <p class="price">GH₵15</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/kontomire_stew.jpg" alt="Kontomire Stew" class="food-photo" />
-      <p class="title">Kontomire Stew</p>
-      <p class="price">GH₵12</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/beans_stew.jpg" alt="Beans Stew" class="food-photo" />
-      <p class="title">Beans Stew</p>
-      <p class="price">GH₵12</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-    <div class="menu-card">
-      <img src="images/akushi_stew.jpg" alt="Akushi Stew" class="food-photo" />
-      <p class="title">Akushi Stew</p>
-      <p class="price">GH₵15</p>
-      <button class="add-to-cart">Add to Cart</button>
-    </div>
-
-  </section>
-
-  <!-- Cart Section -->
-  <section id="cart">
-    <h2>Your Cart</h2>
-    <ul id="cart-items"></ul>
-    <p id="total">Total: GH₵0</p>
-    <button id="checkout-btn">Proceed to Payment</button>
-  </section>
-
-  <script src="script.js"></script>
 </body>
 </html>

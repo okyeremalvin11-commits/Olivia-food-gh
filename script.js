@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add items to cart
     buttons.forEach(button => {
         button.addEventListener('click', (e) => {
-            const card = e.target.closest('.menu-card');
-            const itemName = card.querySelector('.title').textContent;
+            const card = e.target.closest('.menu-item');
+            const itemName = card.querySelector('.label').textContent;
             const priceText = card.querySelector('.price').textContent;
             const price = parseFloat(priceText.replace('GH₵',''));
             cart.push({ name: itemName, price });
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Update cart display
     function updateCart() {
         cartList.innerHTML = "";
 
@@ -28,23 +27,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const existing = acc.find(i => i.name === item.name);
             if (existing) {
                 existing.count += 1;
+                existing.totalPrice += item.price;
             } else {
-                acc.push({ ...item, count: 1 });
+                acc.push({ ...item, count: 1, totalPrice: item.price });
             }
             return acc;
         }, []);
 
         groupedCart.forEach(item => {
-            const itemTotal = item.count * item.price;
             const li = document.createElement("li");
-            li.textContent = `${item.count}x ${item.name} - GH₵${itemTotal.toFixed(2)}`;
+            li.textContent = `${item.count}x ${item.name} - GH₵${item.totalPrice.toFixed(2)}`;
             cartList.appendChild(li);
         });
 
         totalDisplay.textContent = `Total: GH₵${total.toFixed(2)}`;
     }
 
-    // Proceed to payment
     checkoutBtn.addEventListener("click", () => {
         if(cart.length === 0) {
             alert("Your cart is empty! Please add some food.");
@@ -62,11 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return acc;
         }, []);
 
-        // Save to localStorage for payment page
         localStorage.setItem("cartItems", JSON.stringify(groupedCart));
         localStorage.setItem("cartTotal", total.toFixed(2));
 
-        // Redirect to payment page
         window.location.href = "payment.html";
     });
 });
