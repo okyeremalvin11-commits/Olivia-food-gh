@@ -1,166 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Successful - Olivia Delish</title>
-    <style>
-:root {
-  --orange: #FFA500;
-  --yellow: #FFD700;
-  --navy: #0b1d3a;
-  --white: #fff;
-  --light-gray: #ddd;
-}
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Successful — Olivia Delish</title>
+<style>
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: var(--navy);
-  color: var(--white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-h1 {
-  color: var(--orange);
-  margin-bottom: 20px;
+  background: #0b1d3a;
+  color: #fff;
   text-align: center;
+  padding: 50px 20px;
 }
-
-.logo {
-  width: 120px;
-  margin-bottom: 20px;
-}
-
-.cart-container {
-  background: rgba(255, 255, 255, 0.05);
+h1 { color: #FFA500; margin-bottom: 10px; }
+p { font-size: 1.2em; margin-bottom: 20px; }
+.reference-box {
+  background-color: #1a2b4f;
   padding: 20px;
   border-radius: 15px;
-  width: 100%;
-  max-width: 600px;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #FFD700;
+  display: inline-block;
   margin-bottom: 20px;
 }
-
-.cart-container h2 {
-  color: var(--orange);
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.total {
-  font-weight: bold;
-  margin-top: 10px;
-  color: var(--yellow);
-  text-align: right;
-}
-
-label {
-  display: block;
-  margin: 15px 0 5px;
-  font-weight: bold;
-}
-
-input[type="email"],
-input[type="text"] {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  margin-bottom: 10px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-button {
-  flex: 1 1 45%;
-  padding: 12px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #FFA500;
+  color: #1a1a1a;
+  border-radius: 30px;
+  text-decoration: none;
   font-weight: bold;
   transition: 0.3s;
 }
-
-#cancel-btn {
-  background-color: #FF4C4C;
-  color: var(--white);
-}
-#cancel-btn:hover {
-  background-color: #ff0000;
-}
-
-#checkout-btn {
-  background-color: var(--orange);
-  color: var(--navy);
-}
-#checkout-btn:hover {
-  background-color: var(--yellow);
-}
-
-.message {
-  margin-top: 20px;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  display: none;
-  text-align: center;
-  font-weight: bold;
-  color: var(--yellow);
-}
-
-/* Responsive */
-@media (max-width: 500px) {
-  .buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  button {
-    flex: 1 1 100%;
-  }
-}
+.btn:hover { background-color: #FFD700; }
 </style>
-      
-
-       
 </head>
 <body>
-    <img src="images/logo.png" alt="Olivia Delish Logo" class="logo">
-    <h1>Payment Successful!</h1>
-    <p>Thank you for your order. Your payment has been received successfully.</p>
-    <div class="reference-box">
-        Reference: <span id="reference">---</span>
-    </div>
 
-    <p>We will contact you shortly regarding your delivery.</p>
-    <a href="index.html" class="btn">Back to Menu</a>
+<h1>Payment Successful!</h1>
+<p>Thank you for your order. Please call us to verify your order.</p>
+<div class="reference-box">
+    Reference: <span id="reference">---</span>
+</div>
+<a href="index.html" class="btn">Back to Menu</a>
 
-    <script>
-        // Get reference from URL query string
-        const params = new URLSearchParams(window.location.search);
-        const ref = params.get('reference') || '---';
-        document.getElementById('reference').textContent = ref;
-    </script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const ref = params.get('reference') || '---';
+document.getElementById('reference').textContent = ref;
+</script>
+
 </body>
 </html>
