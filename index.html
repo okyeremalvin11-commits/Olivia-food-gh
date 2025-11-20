@@ -4,163 +4,234 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Welcome — Olivia Delish</title>
-<link rel="stylesheet" href="style.css">
 <style>
-  /* --- Variables --- */
-  :root {
-    --orange: #FFA500;
-    --yellow: #FFD700;
-    --navy: #0b1d3a;
-    --white: #fff;
-    --light-gray: #ddd;
-  }
+  /* ==============================
+   GLOBAL VARIABLES
+============================== */
+:root {
+  --orange: #FFA500;
+  --yellow: #FFD700;
+  --navy: #0b1d3a;
+  --white: #fff;
+  --light-gray: #ddd;
 
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--navy);
-    color: var(--white);
-    overflow-x: hidden;
-    position: relative;
-  }
+  --title-size: clamp(1.8rem, 6vw, 3rem);
+  --text-size: clamp(1rem, 3vw, 1.2rem);
+}
 
-  /* Logo */
-  .logo {
-    display: block;
-    margin: 20px auto;
-    width: 180px;
-  }
+/* ==============================
+   GLOBAL STYLING
+============================== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+  position: relative;
+  text-align: center;
+}
 
-  /* Abstract shapes */
-  .shape-yellow, .shape-orange-top, .shape-orange-bottom {
-    position: absolute;
-    z-index: 0;
-  }
-  .shape-yellow {
-    top: -100px;
-    left: -100px;
-    width: 300px;
-    height: 300px;
-    background: var(--yellow);
-    border-radius: 50% 45% 55% 50%;
-  }
-  .shape-orange-top {
-    top: -50px;
-    right: -150px;
-    width: 400px;
-    height: 250px;
-    background: var(--orange);
-    border-radius: 60% 40% 30% 70%;
-    transform: rotate(-20deg);
-  }
-  .shape-orange-bottom {
-    bottom: -100px;
-    left: -150px;
-    width: 400px;
-    height: 250px;
-    background: var(--orange);
-    border-radius: 70% 30% 60% 40%;
-    transform: rotate(15deg);
-  }
+/* Logo */
+.logo {
+  display: block;
+  width: clamp(120px, 40vw, 180px);
+  margin: 20px auto 10px;
+}
 
-  /* Stars */
-  .star {
-    position: absolute;
-    color: white;
-    font-size: 1em;
-    opacity: 0.8;
-    animation: twinkle 2s infinite alternate;
-    user-select: none;
-  }
-  @keyframes twinkle {
-    0% { opacity: 0.2; transform: translate(0,0) rotate(0deg); }
-    50% { opacity: 1; transform: translate(1px,-1px) rotate(2deg); }
-    100% { opacity: 0.3; transform: translate(-1px,1px) rotate(-2deg); }
-  }
+/* ==============================
+   ABSTRACT SHAPES (AUTO-RESIZED)
+============================== */
+.shape-yellow,
+.shape-orange-top,
+.shape-orange-bottom {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.35;
+}
 
-  /* Main content */
-  .content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .content h1 {
-    font-size: 3em;
-    margin-bottom: 0.5em;
-    color: var(--orange);
-  }
-  .content p {
-    font-size: 1.2em;
-    max-width: 600px;
-    margin: 0 auto 1em;
-    color: var(--light-gray);
-  }
-  .menu-button {
-    background-color: var(--yellow);
-    color: var(--navy);
-    padding: 12px 28px;
-    font-size: 1em;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    margin-bottom: 40px;
-    transition: background 0.3s ease;
-  }
-  .menu-button:hover {
-    background-color: #FFC300;
-  }
+.shape-yellow {
+  top: -80px;
+  left: -80px;
+  width: 220px;
+  height: 220px;
+  background: var(--yellow);
+  border-radius: 50% 45% 55% 50%;
+}
 
-  /* Floating dishes */
+.shape-orange-top {
+  top: -60px;
+  right: -100px;
+  width: 280px;
+  height: 180px;
+  background: var(--orange);
+  border-radius: 60% 40% 30% 70%;
+  transform: rotate(-20deg);
+}
+
+.shape-orange-bottom {
+  bottom: -120px;
+  left: -100px;
+  width: 320px;
+  height: 200px;
+  background: var(--orange);
+  border-radius: 70% 30% 60% 40%;
+  transform: rotate(15deg);
+}
+
+/* ==============================
+   STAR ANIMATION
+============================== */
+.star {
+  position: absolute;
+  color: var(--white);
+  font-size: 0.9rem;
+  opacity: 0.7;
+  animation: twinkle 2s infinite alternate ease-in-out;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* ==============================
+   MAIN CONTENT
+============================== */
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.content h1 {
+  font-size: var(--title-size);
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: var(--text-size);
+  max-width: 90%;
+  margin: 0 auto 15px;
+  color: var(--light-gray);
+}
+
+/* ==============================
+   MENU BUTTON
+============================== */
+.menu-button {
+  background: var(--yellow);
+  color: var(--navy);
+  padding: 14px 34px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 20px auto 30px;
+  transition: 0.25s;
+  font-weight: 600;
+}
+
+.menu-button:hover {
+  background: #ffe066;
+}
+
+/* ==============================
+   DISH GALLERY (CENTERED)
+============================== */
+.dish-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px 20px;
+  margin-bottom: 30px;
+}
+
+.dish {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--orange);
+  animation: float 3s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-10px); }
+}
+
+.dish img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==============================
+   CONTACT AREA
+============================== */
+.contact-info {
+  margin-top: 30px;
+  color: var(--light-gray);
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-info p {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.contact-info .highlight {
+  color: var(--yellow);
+  font-weight: bold;
+}
+
+.social-links a {
+  color: var(--yellow);
+  text-decoration: none;
+  margin: 0 12px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ==============================
+   MOBILE OPTIMIZATION
+============================== */
+@media (max-width: 480px) {
   .dish-gallery {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-  .dish {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--orange);
-    animation: float 3s ease-in-out infinite alternate;
-  }
-  .dish img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0); }
+    gap: 10px;
   }
 
-  /* Contact & Social */
-  .contact-info {
-    margin-top: 50px;
-    text-align: center;
-    font-size: 1em;
-    color: var(--light-gray);
-  }
-  .social-links {
-    margin: 10px 0;
-  }
   .social-links a {
-    text-decoration: none;
-    color: var(--yellow);
-    margin: 0 10px;
-    font-weight: bold;
+    margin: 0 8px;
+    font-size: 0.9rem;
   }
 
-  /* Responsive */
-  @media(max-width: 768px) {
-    .dish-gallery {
-      gap: 10px;
-    }
+  .contact-info p {
+    font-size: 0.9rem;
   }
+
+  .content h1 {
+    font-size: clamp(1.5rem, 8vw, 2.2rem);
+  }
+
+  .menu-button {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -195,7 +266,7 @@
       <div class="dish"><img src="images/waakye.jpg" alt="Waakye"></div>
       <div class="dish"><img src="images/jollof-spaghetti.jpg" alt="Jollof Spaghetti"></div>
       <div class="dish"><img src="images/salad-mix.jpg" alt="Salad Mix"></div>
-      <div class="dish"><img src="images/fried-rice.jpg" alt="Fried Rice"></div>
+      <div class="dish"><img src="images/fried_rice.jpg" alt="Fried Rice"></div>
     </div>
 
     <!-- Contact & Social -->
@@ -206,7 +277,7 @@
         <a href="#">Instagram</a>
         <a href="#">WhatsApp</a>
       </div>
-      <p>We take orders for: Weddings, Birthdays, Corporate Events, etc.</p>
+      <p class="highlight">We take orders for: Weddings, Birthdays, Corporate Events, etc.</p>
     </div>
   </div>
 

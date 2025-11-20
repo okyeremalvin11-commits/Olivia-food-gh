@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartList = document.getElementById("cart-items");
     const totalDisplay = document.getElementById("total");
     const checkoutBtn = document.getElementById("checkout-btn");
+    const cancelBtn = document.getElementById("cancel-btn");
 
-    // Add items to cart
+    // --- Add items to cart ---
     buttons.forEach(button => {
         button.addEventListener('click', (e) => {
             const card = e.target.closest('.menu-item');
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // --- Update Cart Display ---
     function updateCart() {
         cartList.innerHTML = "";
 
@@ -43,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         totalDisplay.textContent = `Total: GH₵${total.toFixed(2)}`;
     }
 
+    // --- Checkout ---
     checkoutBtn.addEventListener("click", () => {
         if(cart.length === 0) {
             alert("Your cart is empty! Please add some food.");
@@ -64,5 +67,17 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("cartTotal", total.toFixed(2));
 
         window.location.href = "payment.html";
+    });
+
+    // --- Cancel Order ---
+    cancelBtn.addEventListener("click", () => {
+        if (confirm("Are you sure you want to cancel your order?")) {
+            cart = [];
+            total = 0;
+            localStorage.removeItem("cartItems");
+            localStorage.removeItem("cartTotal");
+            updateCart();
+            alert("Your order has been cancelled.");
+        }
     });
 });

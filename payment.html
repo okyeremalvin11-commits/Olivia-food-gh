@@ -1,265 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Olivia Delish Payment</title>
-  <script src="https://js.paystack.co/v1/inline.js"></script>
-  <style>
-    /* Variables */
-    :root {
-      --navy: #0b1d3a;
-      --orange: #FFA500;
-      --yellow: #FFD700;
-      --white: #fff;
-      --gray: #ccc;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment — Olivia Delish</title>
+<style>
+:root {
+  --orange: #FFA500;
+  --yellow: #FFD700;
+  --navy: #0b1d3a;
+  --white: #fff;
+  --light-gray: #ddd;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--navy);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+h1 { color: var(--orange); margin-bottom: 20px; }
+.logo { width: 120px; margin-bottom: 20px; }
+
+.cart-container {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+ul { list-style: none; padding: 0; }
+li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+.total { font-weight: bold; margin-top: 10px; color: var(--yellow); }
+
+label { display: block; margin: 15px 0 5px; }
+input[type="email"], input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.buttons { display: flex; justify-content: space-between; margin-top: 20px; }
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+#cancel-btn { background-color: #FF4C4C; color: var(--white); }
+#cancel-btn:hover { background-color: #ff0000; }
+#checkout-btn { background-color: var(--orange); color: var(--navy); }
+#checkout-btn:hover { background-color: var(--yellow); }
+
+.message {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  display: none;
+}
+
+@media(max-width: 500px) {
+  .buttons { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<img src="images/logo.png" alt="Olivia Delish Logo" class="logo">
+<h1>Checkout</h1>
+
+<div class="cart-container">
+  <h2>Your Cart</h2>
+  <ul id="cart-items"></ul>
+  <div class="total" id="total">Total: GH₵0.00</div>
+</div>
+
+<label for="email">Your Email:</label>
+<input type="email" id="email" placeholder="Enter your email" required>
+
+<label for="phone">Phone Number:</label>
+<input type="text" id="phone" placeholder="Enter your phone" required>
+
+<label for="address">Delivery Address:</label>
+<input type="text" id="address" placeholder="Enter delivery address" required>
+
+<div class="buttons">
+  <button id="cancel-btn">Cancel Order</button>
+  <button id="checkout-btn">Proceed to Payment</button>
+</div>
+
+<div class="message" id="success-message">
+  Thank you! Your order has been placed successfully.
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+emailjs.init("BGuzMH9ebV7rUnrhx"); // EmailJS public key
+
+let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+let total = parseFloat(localStorage.getItem("cartTotal")) || 0;
+
+const cartList = document.getElementById("cart-items");
+const totalDisplay = document.getElementById("total");
+const checkoutBtn = document.getElementById("checkout-btn");
+const cancelBtn = document.getElementById("cancel-btn");
+const successMessage = document.getElementById("success-message");
+
+function displayCart() {
+  cartList.innerHTML = "";
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.count} x ${item.name} - GH₵${item.totalPrice.toFixed(2)}`;
+    cartList.appendChild(li);
+  });
+  totalDisplay.textContent = `Total: GH₵${total.toFixed(2)}`;
+}
+
+displayCart();
+
+cancelBtn.addEventListener("click", () => {
+  if(confirm("Are you sure you want to cancel your order?")) {
+    localStorage.removeItem("cartItems");
+    localStorage.removeItem("cartTotal");
+    cart = [];
+    total = 0;
+    displayCart();
+    alert("Order cancelled!");
+  }
+});
+
+checkoutBtn.addEventListener("click", () => {
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const address = document.getElementById("address").value;
+
+  if(!email || !phone || !address){
+    alert("Please fill all fields!");
+    return;
+  }
+
+  const orderDetails = cart.map(i => `${i.count} x ${i.name}`).join(", ");
+  const templateParams = {
+    to_email: email,
+    order_details: orderDetails,
+    total: `GH₵${total.toFixed(2)}`,
+    phone: phone,
+    address: address
+  };
+
+  // Send EmailJS confirmation
+  emailjs.send("service_g3378j3", "template_c2ge7fc", templateParams)
+    .then(response => console.log('Email sent', response.status, response.text))
+    .catch(error => console.error('Email failed', error));
+
+  // Paystack Payment
+  let handler = PaystackPop.setup({
+    key: 'pk_live_6b1543665f3fd0ec08938ff844c42f571fc6d089',
+    email: email,
+    amount: total * 100,
+    currency: "GHS",
+    ref: '' + Math.floor(Math.random() * 1000000000 + 1),
+    callback: function(response){
+      successMessage.style.display = "block";
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("cartTotal");
+      // Redirect to success page with reference
+      window.location.href = `payment-success.html?reference=${response.reference}`;
+    },
+    onClose: function(){
+      alert('Transaction was not completed, window closed.');
     }
-
-    /* Global Styles */
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--navy);
-      color: var(--white);
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    /* Header */
-    .payment-header {
-      text-align: center;
-      padding: 40px 20px 20px;
-      background: linear-gradient(135deg, var(--orange), var(--yellow));
-      color: var(--navy);
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-    }
-
-    .payment-header .logo {
-      height: 80px;
-      margin-bottom: 10px;
-    }
-
-    .payment-header h1 {
-      margin: 5px 0;
-      font-size: 2.5em;
-    }
-
-    .payment-header .subtitle {
-      font-size: 1.1em;
-      color: var(--navy);
-    }
-
-    /* Main */
-    .payment-main {
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 20px;
-    }
-
-    /* Order Summary */
-    .order-summary {
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 30px;
-    }
-
-    .order-summary h2 {
-      color: var(--orange);
-      margin-bottom: 15px;
-    }
-
-    .cart-items {
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 15px;
-    }
-
-    .cart-items li {
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .total {
-      font-weight: bold;
-      font-size: 1.3em;
-      color: var(--yellow);
-    }
-
-    /* Customer Info */
-    .customer-info {
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 30px;
-    }
-
-    .customer-info h2 {
-      color: var(--orange);
-      margin-bottom: 15px;
-    }
-
-    .customer-info input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid var(--gray);
-      font-size: 1em;
-    }
-
-    /* Pay Button */
-    .pay-btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      font-size: 1.2em;
-      font-weight: bold;
-      color: var(--white);
-      background: var(--orange);
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .pay-btn:hover {
-      background: var(--yellow);
-      color: var(--navy);
-    }
-
-    /* Footer */
-    .payment-footer {
-      text-align: center;
-      margin-top: 40px;
-      padding: 20px;
-      font-size: 0.9em;
-    }
-
-    .back-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background: var(--orange);
-      color: var(--navy);
-      border-radius: 30px;
-      transition: 0.3s;
-    }
-
-    .back-btn:hover {
-      background: var(--yellow);
-      color: var(--navy);
-    }
-  </style>
-  <header style="text-align:center; padding:20px;">
-    <img src="images/logo.png" alt="Olivia Delish Logo" class="logo" style="height:70px; margin-bottom:10px;">
-    <h1>Complete Your Payment</h1>
-    <p class="subtitle">Review your order and provide your delivery details</p>
-</header>
-
-  <main class="payment-main">
-    <section class="order-summary">
-      <h2>Order Summary</h2>
-      <ul id="payment-cart-items" class="cart-items"></ul>
-      <p class="total">Total: GH₵<span id="payment-total">0.00</span></p>
-    </section>
-
-    <section class="customer-info">
-      <h2>Customer Information</h2>
-      <form id="customer-form">
-        <label for="customer-email">Email (Required for Receipt)</label>
-        <input type="email" id="customer-email" required placeholder="you@example.com">
-
-        <label for="customer-phone">Phone Number</label>
-        <input type="tel" id="customer-phone" placeholder="024 XXXX XXX">
-
-        <label for="customer-address">Delivery Address (Required)</label>
-        <input type="text" id="customer-address" required placeholder="Enter delivery address">
-      </form>
-    </section>
-
-    <button id="pay-now" class="pay-btn">Pay Now</button>
-  </main>
-
-  <footer class="payment-footer">
-    <p>Thank you for choosing Olivia Delish Delivery 🍽</p>
-    <a href="index.html" class="back-btn">Back to Menu</a>
-  </footer>
-
-  <script>
-    const total = localStorage.getItem("cartTotal") || 0;
-    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    const paymentList = document.getElementById("payment-cart-items");
-    const amountInPesewas = Math.round(parseFloat(total) * 100);
-
-    document.getElementById("payment-total").textContent = total;
-
-    cartItems.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.count}x ${item.name} (GH₵${item.totalPrice.toFixed(2)})`;
-        paymentList.appendChild(li);
-    });
-
-    const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/25418411/uz267oi/s";
-
-    document.getElementById("pay-now").addEventListener("click", payWithPaystack);
-
-    function payWithPaystack() {
-        const customerEmail = document.getElementById('customer-email').value.trim();
-        const customerPhone = document.getElementById('customer-phone').value.trim();
-        const customerAddress = document.getElementById('customer-address').value.trim();
-
-        if (!customerEmail) { alert("Email is required"); return; }
-        if (!customerAddress) { alert("Address is required"); return; }
-        if (amountInPesewas <= 0) { alert("Cart is empty"); return; }
-
-        let handler = PaystackPop.setup({
-            key: 'pk_live_6b1543665f3fd0ec08938ff844c42f571fc6d089',
-            email: customerEmail,
-            amount: amountInPesewas,
-            currency: 'GHS',
-            ref: 'OLIVIA_' + Math.floor(Math.random() * 1000000000),
-            metadata: {
-                custom_fields: [
-                    { display_name: "Phone", variable_name: "phone_number", value: customerPhone }
-                ]
-            },
-
-            callback: function(response){
-                const timestamp = new Date().toLocaleString();
-                cartItems.forEach(item => {
-                    fetch(ZAPIER_WEBHOOK_URL, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            orderId: response.reference,
-                            name: item.name,
-                            phone: customerPhone,
-                            address: customerAddress,
-                            item: item.name,
-                            amount: item.totalPrice,
-                            time: timestamp
-                        })
-                    });
-                });
-
-                alert('Payment Successful! Reference: ' + response.reference);
-                localStorage.removeItem("cartItems");
-                localStorage.removeItem("cartTotal");
-
-                window.location.href = "payment-success.html?reference=" + response.reference;
-            },
-
-            onClose: function(){ 
-                alert('Transaction cancelled.'); 
-            }
-        });
-
-        handler.openIframe();
-    }
-  </script>
+  });
+  handler.openIframe();
+});
+</script>
 </body>
 </html>
