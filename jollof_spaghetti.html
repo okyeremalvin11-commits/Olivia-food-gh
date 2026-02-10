@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jollof Spaghetti — Olivia Delish</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="Olivia Delish Logo">
+        Olivia Delish
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="menu-content">
+    <div class="breadcrumb"><a href="menu.html">Menu</a> / <span>Jollof Spaghetti</span></div>
+
+    <section class="menu-section">
+      <div class="item-page">
+        <div class="item-photo-wrap"><img src="images/jollof_spaghetti.jpg" alt="Jollof Spaghetti" class="item-photo"></div>
+        <div class="item-info">
+          <h1 id="item-title" class="label">Jollof Spaghetti</h1>
+          <p id="item-desc" class="description">Savory jollof spaghetti with optional meats and sides. A delicious twist on classic jollof.</p>
+          <div id="item-price" class="price">GH₵14</div>
+
+          <div class="item-options">
+            <h3>Meats</h3>
+            <div id="opt-meats" class="modal-category-list">
+              <label class="modal-option"><input type="radio" name="page-meat" data-name="Chicken" data-price="12" checked> Chicken <span class="opt-price">+GH₵12</span></label>
+              <label class="modal-option"><input type="radio" name="page-meat" data-name="Sausage" data-price="6"> Sausage <span class="opt-price">+GH₵6</span></label>
+            </div>
+            <!-- ADD "None" option -->
+                  <label class="modal-option">
+                    <input type="radio" name="page-meat" data-name="No Extra Protein" data-price="0" checked>
+                    <!-- ADDED "checked" here for "None" -->
+                    <div class="option-details">
+                      <span class="option-name">No Extra Protein</span>
+                      <span class="option-desc">Stick with included items only</span>
+                      <span class="opt-price">+GH₵0</span>
+                    </div>
+                  </label>
+
+            <h3>Stews</h3>
+            <div id="opt-stews" class="modal-category-list">
+              <label class="modal-option"><input type="radio" name="page-stew" data-name="Egushie" data-price="15" checked> Egushie <span class="opt-price">+GH₵15</span></label>
+            </div>
+            <!-- ADD "None" option -->
+                  <label class="modal-option">
+                    <input type="radio" name="page-stew" data-name="No Extra Stew" data-price="0" checked>
+                    <!-- ADDED "checked" here for "None" -->
+                    <div class="option-details">
+                      <span class="option-name">No Extra Stew</span>
+                      <span class="option-desc">Stick with included items only</span>
+                      <span class="opt-price">+GH₵0</span>
+                    </div>
+                  </label>
+
+            <h3>Sides</h3>
+            <div id="opt-sides" class="modal-category-list">
+              <label class="modal-option"><input type="checkbox" name="page-side" data-name="Mix Salad" data-price="1"> Mix Salad <span class="opt-price">+GH₵1</span></label>
+            </div>
+          </div>
+
+          <div id="selected-preview" style="display:none; margin-top:10px;"><strong>Selected:</strong> <span id="selected-list"></span></div>
+
+          <div style="margin-top:15px; display:flex; gap:10px;">
+            <button id="item-add-to-cart" class="add-to-cart">Add to Cart</button>
+            <a href="menu.html" class="modal-cancel">Back to Menu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="product-page.js"></script>
+</body>
+</html>

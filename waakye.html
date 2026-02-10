@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waakye — Olivia Delish</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="Olivia Delish Logo">
+        Olivia Delish
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="menu-content">
+    <div class="breadcrumb"><a href="menu.html">Menu</a> / <span>Waakye</span></div>
+
+    <section class="menu-section">
+      <div class="item-page">
+        <!-- Food Photo -->
+        <div class="item-photo-wrap">
+          <img src="images/waakye.jpg" alt="Waakye" class="item-photo">
+        </div>
+        
+        <!-- Food Information -->
+        <div class="item-info">
+          <h1 id="item-title" class="label">Waakye</h1>
+          <p id="item-desc" class="description">Reddish-brown rice with soaked sorghum leaves, beans, soft garri, fried plantain, boiled egg, shito, and fresh salad.</p>
+          <div id="item-price" class="price">GH₵12</div>
+
+          <!-- ====== WHAT'S INCLUDED ====== -->
+          <div class="included-items">
+            <h3>✅ This Meal Includes:</h3>
+            <div class="included-list">
+              <div class="included-item">
+                <span>🍚</span>
+                <span>Reddish-brown rice with sorghum leaves</span>
+              </div>
+              <div class="included-item">
+                <span>🫘</span>
+                <span>Beans</span>
+              </div>
+              <div class="included-item">
+                <span>🍌</span>
+                <span>Fried plantain</span>
+              </div>
+              <div class="included-item">
+                <span>🥚</span>
+                <span>Boiled egg</span>
+              </div>
+              <div class="included-item">
+                <span>🌶️</span>
+                <span>Shito (spicy black pepper sauce)</span>
+              </div>
+              <div class="included-item">
+                <span>🥗</span>
+                <span>Fresh salad</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====== CUSTOMIZE YOUR MEAL ====== -->
+          <div class="customize-section">
+            <h3>🎨 Customize Your Waakye:</h3>
+            <p class="customize-subtitle">Choose your preferred options below (all optional)</p>
+
+            <div class="item-options">
+              <!-- MEAT SELECTION -->
+              <div class="option-group">
+                <h4>🍖 Add Protein (Optional)</h4>
+                <p class="option-instruction">Select one if you want extra protein</p>
+                <div id="opt-meats" class="modal-category-list">
+                  <label class="modal-option">
+                    <input type="radio" name="page-meat" data-name="Cow Meat" data-price="10">
+                    <!-- REMOVED "checked" attribute -->
+                    <div class="option-details">
+                      <span class="option-name">Cow Meat</span>
+                      <span class="option-desc">Tender beef pieces in stew</span>
+                      <span class="opt-price">+GH₵10</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="radio" name="page-meat" data-name="Chicken" data-price="12">
+                    <!-- REMOVED "checked" attribute -->
+                    <div class="option-details">
+                      <span class="option-name">Chicken</span>
+                      <span class="option-desc">Grilled or fried chicken</span>
+                      <span class="opt-price">+GH₵12</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="radio" name="page-meat" data-name="Pola Fish" data-price="15">
+                    <!-- REMOVED "checked" attribute -->
+                    <div class="option-details">
+                      <span class="option-name">Pola Fish</span>
+                      <span class="option-desc">Fried tilapia fish</span>
+                      <span class="opt-price">+GH₵15</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="radio" name="page-meat" data-name="Egg (Extra)" data-price="5">
+                    <!-- REMOVED "checked" attribute -->
+                    <div class="option-details">
+                      <span class="option-name">Extra Egg</span>
+                      <span class="option-desc">Additional boiled egg</span>
+                      <span class="opt-price">+GH₵5</span>
+                    </div>
+                  </label>
+                  <!-- ADD "None" option -->
+                  <label class="modal-option">
+                    <input type="radio" name="page-meat" data-name="No Extra Protein" data-price="0" checked>
+                    <!-- ADDED "checked" here for "None" -->
+                    <div class="option-details">
+                      <span class="option-name">No Extra Protein</span>
+                      <span class="option-desc">Stick with included items only</span>
+                      <span class="opt-price">+GH₵0</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- EXTRA STEW SELECTION -->
+              <div class="option-group">
+                <h4>🍲 Extra Stew Options</h4>
+                <p class="option-instruction">Select one if you want extra stew</p>
+                <div id="opt-stews" class="modal-category-list">
+                  <label class="modal-option">
+                    <input type="radio" name="page-stew" data-name="Beans Stew" data-price="12">
+                    <!-- REMOVED "checked" attribute -->
+                    <div class="option-details">
+                      <span class="option-name">Beans Stew</span>
+                      <span class="option-desc">Traditional beans stew</span>
+                      <span class="opt-price">+GH₵12</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="radio" name="page-stew" data-name="Egushie" data-price="15">
+                    <!-- REMOVED "checked" attribute -->
+                    <div class="option-details">
+                      <span class="option-name">Egushie</span>
+                      <span class="option-desc">Palm nut soup</span>
+                      <span class="opt-price">+GH₵15</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="radio" name="page-stew" data-name="Kontomire" data-price="14">
+                    <!-- REMOVED "checked" attribute -->
+                    <div class="option-details">
+                      <span class="option-name">Kontomire</span>
+                      <span class="option-desc">Cocoyam leaves stew</span>
+                      <span class="opt-price">+GH₵14</span>
+                    </div>
+                  </label>
+                  <!-- ADD "None" option -->
+                  <label class="modal-option">
+                    <input type="radio" name="page-stew" data-name="No Extra Stew" data-price="0" checked>
+                    <!-- ADDED "checked" here for "None" -->
+                    <div class="option-details">
+                      <span class="option-name">No Extra Stew</span>
+                      <span class="option-desc">Stick with included items only</span>
+                      <span class="opt-price">+GH₵0</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- EXTRA SIDES (Checkboxes - can select multiple or none) -->
+              <div class="option-group">
+                <h4>🥗 Add Extra Sides</h4>
+                <p class="option-instruction">Select as many as you want</p>
+                <div id="opt-sides" class="modal-category-list">
+                  <label class="modal-option">
+                    <input type="checkbox" name="page-side" data-name="Extra Garri" data-price="5">
+                    <!-- Checkboxes never pre-checked -->
+                    <div class="option-details">
+                      <span class="option-name">Extra Garri</span>
+                      <span class="option-desc">Additional garri portion</span>
+                      <span class="opt-price">+GH₵5</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="checkbox" name="page-side" data-name="Mix Salad" data-price="1">
+                    <!-- Checkboxes never pre-checked -->
+                    <div class="option-details">
+                      <span class="option-name">Extra Salad</span>
+                      <span class="option-desc">Additional fresh salad</span>
+                      <span class="opt-price">+GH₵1</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="checkbox" name="page-side" data-name="Extra Shito" data-price="2">
+                    <!-- Checkboxes never pre-checked -->
+                    <div class="option-details">
+                      <span class="option-name">Extra Shito</span>
+                      <span class="option-desc">More spicy pepper sauce</span>
+                      <span class="opt-price">+GH₵2</span>
+                    </div>
+                  </label>
+                  <label class="modal-option">
+                    <input type="checkbox" name="page-side" data-name="Extra Plantain" data-price="3">
+                    <!-- Checkboxes never pre-checked -->
+                    <div class="option-details">
+                      <span class="option-name">Extra Plantain</span>
+                      <span class="option-desc">Additional fried plantain</span>
+                      <span class="opt-price">+GH₵3</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selection Preview -->
+          <div id="selected-preview" style="display:none; margin-top:20px; padding:15px; background:rgba(46,196,182,0.1); border-radius:10px;">
+            <strong>Your Selection:</strong> 
+            <span id="selected-list"></span>
+            <div id="selected-price" style="color:var(--secondary); font-weight:700; margin-top:5px;"></div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div style="margin-top:25px; display:flex; gap:15px;">
+            <button id="item-add-to-cart" class="add-to-cart">Add to Cart - GH₵12</button>
+            <a href="menu.html" class="modal-cancel">Back to Menu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Customer Form will be added by JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

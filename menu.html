@@ -180,314 +180,75 @@
     <section class="menu-section">
       <h2>Main Meals</h2>
       <div class="menu-grid">
-        <div class="menu-item">
+        <div class="menu-item" data-page="waakye.html">
           <img src="images/waakye.jpg" alt="Waakye" class="food-photo">
           <div class="menu-details">
             <div class="label">Waakye</div>
             <div class="description">Reddish-brown rice with soaked sorghum leaves, beans, soft garri, fried plantain, boiled egg, shito, and fresh salad.</div>
             <div class="price">GH₵12</div>
-            <button class="add-to-cart">Add to Cart</button>
-            <button class="customization-toggle">+ Add Extras</button>
-            
-            <!-- Customization Panel -->
-            <div class="customization-panel">
-              <div class="customization-category">
-                <h4>🍖 Choose a Meat</h4>
-                <div class="addon-options" data-category="meat">
-                  <div class="addon-item" data-name="Cow Meat" data-price="10">
-                    <span class="addon-name">Cow Meat</span>
-                    <span class="addon-price">+GH₵10</span>
-                  </div>
-                  <div class="addon-item" data-name="Chicken" data-price="12">
-                    <span class="addon-name">Chicken</span>
-                    <span class="addon-price">+GH₵12</span>
-                  </div>
-                  <div class="addon-item" data-name="Pola Fish" data-price="15">
-                    <span class="addon-name">Pola Fish</span>
-                    <span class="addon-price">+GH₵15</span>
-                  </div>
-                  <div class="addon-item" data-name="Egg" data-price="5">
-                    <span class="addon-name">Egg</span>
-                    <span class="addon-price">+GH₵5</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="customization-category">
-                <h4>🍲 Choose a Stew</h4>
-                <div class="addon-options" data-category="stew">
-                  <div class="addon-item" data-name="Beans Stew" data-price="12">
-                    <span class="addon-name">Beans Stew</span>
-                    <span class="addon-price">+GH₵12</span>
-                  </div>
-                  <div class="addon-item" data-name="Egushie Stew" data-price="15">
-                    <span class="addon-name">Egushie</span>
-                    <span class="addon-price">+GH₵15</span>
-                  </div>
-                  <div class="addon-item" data-name="Kontomire Stew" data-price="14">
-                    <span class="addon-name">Kontomire</span>
-                    <span class="addon-price">+GH₵14</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="customization-category">
-                <h4>🥗 Add a Side</h4>
-                <div class="addon-options" data-category="side">
-                  <div class="addon-item" data-name="Garri" data-price="5">
-                    <span class="addon-name">Garri</span>
-                    <span class="addon-price">+GH₵5</span>
-                  </div>
-                  <div class="addon-item" data-name="Mix Salad" data-price="1">
-                    <span class="addon-name">Mix Salad</span>
-                    <span class="addon-price">+GH₵1</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="selected-addons" id="selected-addons-preview" style="display: none;">
-                <h5>Your Extras:</h5>
-                <div id="addons-list"></div>
-              </div>
-            </div>
+            <a class="view-more" href="waakye.html">View More</a> <!-- opens Waakye page -->
           </div>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item" data-page="jollof_rice.html">
           <img src="images/jollof_rice.jpg" alt="Jollof Rice" class="food-photo">
           <div class="menu-details">
             <div class="label">Jollof Rice</div>
             <div class="description">Spicy Ghanaian jollof rice with optional meat and mix salad. The party favorite!</div>
             <div class="price">GH₵15</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <a class="view-more" href="jollof_rice.html">View More</a>
           </div>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item" data-page="plain_rice.html">
           <img src="images/plain_rice.jpg" alt="Plain Rice" class="food-photo">
           <div class="menu-details">
             <div class="label">Plain Rice</div>
             <div class="description">Simple plain rice served with your choice of stew and meat. Classic and comforting.</div>
             <div class="price">GH₵10</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <a class="view-more" href="plain_rice.html">View More</a>
           </div>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item" data-page="jollof_spaghetti.html">
           <img src="images/jollof_spaghetti.jpg" alt="Jollof Spaghetti" class="food-photo">
           <div class="menu-details">
             <div class="label">Jollof Spaghetti</div>
             <div class="description">Savory jollof spaghetti with optional meats and sides. A delicious twist on classic jollof.</div>
             <div class="price">GH₵14</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <a class="view-more" href="jollof_spaghetti.html">View More</a>
           </div>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item" data-page="fried_rice.html">
           <img src="images/fried_rice.jpg" alt="Fried Rice" class="food-photo">
           <div class="menu-details">
             <div class="label">Fried Rice</div>
             <div class="description">Ghanaian fried rice served with your choice of meat. Loaded with vegetables and flavor.</div>
             <div class="price">GH₵16</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <a class="view-more" href="fried_rice.html">View More</a>
           </div>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item" data-page="ampesi.html">
           <img src="images/ampesi.jpg" alt="Ampesi" class="food-photo">
           <div class="menu-details">
             <div class="label">Ampesi</div>
             <div class="description">Boiled yam, plantain or cocoyam served with optional sides and stew. Traditional and hearty.</div>
             <div class="price">GH₵12</div>
-            <button class="add-to-cart">Add to Cart</button>
+            <a class="view-more" href="ampesi.html">View More</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Special Combinations -->
-    <section class="menu-section">
-      <h2>Special Combinations</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <img src="images/ampesi_kontomire.jpg" alt="Ampesi with Kontomire Stew" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Ampesi with Kontomire Stew</div>
-            <div class="description">Ampesi served with spinach-based kontomire stew. A perfect traditional combination.</div>
-            <div class="price">GH₵18</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
+    <!-- Special Combinations removed; site now shows main meals only -->
 
-        <div class="menu-item">
-          <img src="images/ampesi_beans.jpg" alt="Ampesi with Beans" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Ampesi with Beans</div>
-            <div class="description">Ampesi served with tasty beans stew. Protein-packed and satisfying.</div>
-            <div class="price">GH₵18</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
+    <!-- Available Meats removed -->
 
-        <div class="menu-item">
-          <img src="images/plain_rice_kontomire.jpg" alt="Plain Rice with Kontomire" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Plain Rice with Kontomire</div>
-            <div class="description">Plain rice served with kontomire stew. Simple, healthy, and delicious.</div>
-            <div class="price">GH₵15</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Available Stews removed -->
 
-    <!-- Available Meats -->
-    <section class="menu-section">
-      <h2>Available Meats</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <img src="images/cow_meat.jpg" alt="Cow Meat" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Cow Meat</div>
-            <div class="description">Tender beef chunks, perfectly seasoned and cooked. Great with any meal.</div>
-            <div class="price">GH₵10</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/chicken.jpg" alt="Chicken" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Chicken</div>
-            <div class="description">Grilled or fried chicken, juicy and flavorful. Our customer favorite!</div>
-            <div class="price">GH₵12</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/pola.jpg" alt="Pola Fish" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Pola Fish</div>
-            <div class="description">Smoked or fried fish, perfect with rice or yam. Rich and flavorful.</div>
-            <div class="price">GH₵15</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/cassava_fish.jpg" alt="Cassava Fish" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Cassava Fish</div>
-            <div class="description">Fresh fish served with cassava-based sauces. Unique and delicious.</div>
-            <div class="price">GH₵14</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/egg.jpg" alt="Egg" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Egg</div>
-            <div class="description">Boiled or fried eggs, a simple protein addition to any meal.</div>
-            <div class="price">GH₵5</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/sausage.jpg" alt="Sausage" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Sausage</div>
-            <div class="description">Spicy or mild sausages to complement any meal. Always a hit!</div>
-            <div class="price">GH₵6</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/wole.jpg" alt="Wɔle" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Wɔle</div>
-            <div class="description">Traditional smoked meat, flavorful and tender. Authentic Ghanaian taste.</div>
-            <div class="price">GH₵8</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Available Stews -->
-    <section class="menu-section">
-      <h2>Available Stews</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <img src="images/beans_stew.jpg" alt="Beans Stew" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Beans Stew</div>
-            <div class="description">Rich and savory beans stew to accompany any meal. Hearty and nutritious.</div>
-            <div class="price">GH₵12</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/egushie_stew.jpg" alt="Egushie Stew" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Egushie Stew</div>
-            <div class="description">Nutty melon seed stew, perfect with rice or yam. Traditional favorite.</div>
-            <div class="price">GH₵15</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/kontomire_sauce.jpg" alt="Kontomire Stew" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Kontomire Stew</div>
-            <div class="description">Spinach and peanut-based sauce, delicious with ampesi or rice. Healthy choice.</div>
-            <div class="price">GH₵14</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Staples & Sides -->
-    <section class="menu-section">
-      <h2>Staples & Sides</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <img src="images/garri.jpg" alt="Garri" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Garri</div>
-            <div class="description">Softened garri mixed with a little water and stew oil. Classic Ghanaian side.</div>
-            <div class="price">GH₵5</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/spaghetti.jpg" alt="Spaghetti" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Spaghetti</div>
-            <div class="description">Cooked spaghetti, lightly seasoned, served as a side. Versatile and tasty.</div>
-            <div class="price">GH₵6</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="menu-item">
-          <img src="images/salad.jpg" alt="Mix Salad" class="food-photo">
-          <div class="menu-details">
-            <div class="label">Mix Salad</div>
-            <div class="description">Fresh lettuce, tomatoes, onions, and carrot slices. Fresh and crunchy.</div>
-            <div class="price">GH₵1</div>
-            <button class="add-to-cart">Add to Cart</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Staples & Sides removed -->
 
     <!-- Customer Information & Cart -->
     <section class="cart-section">
@@ -555,6 +316,44 @@
       <p>&copy; 2026 Olivia Delish Delivery. All rights reserved. | Authentic Ghanaian Meals</p>
     </div>
   </footer>
+  <!-- Item Detail Modal -->
+  <div class="item-modal" id="item-modal" aria-hidden="true">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+      <div class="modal-body">
+        <img src="" alt="" class="modal-photo" id="modal-photo">
+        <div class="modal-info">
+          <h3 id="modal-title" class="modal-title">Item</h3>
+          <p id="modal-desc" class="modal-desc"></p>
+          <div class="modal-price" id="modal-price"></div>
+
+          <div class="modal-categories">
+            <div class="modal-category">
+              <h4>🍖 Meats</h4>
+              <div class="modal-category-list" id="modal-meats"></div>
+            </div>
+            <div class="modal-category">
+              <h4>🍲 Stews</h4>
+              <div class="modal-category-list" id="modal-stews"></div>
+            </div>
+            <div class="modal-category">
+              <h4>🥗 Sides</h4>
+              <div class="modal-category-list" id="modal-sides"></div>
+            </div>
+          </div>
+
+          <div class="modal-selected" id="modal-selected" style="display:none;"><strong>Selected:</strong> <span id="modal-selected-list"></span></div>
+
+          <div class="modal-actions">
+            <button class="add-to-cart modal-add-to-cart" id="modal-add-to-cart">Add to Cart</button>
+            <button class="modal-cancel" id="modal-cancel">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

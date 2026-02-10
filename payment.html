@@ -529,23 +529,38 @@
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <script>
     // Get order data from localStorage
-    const orderData = JSON.parse(localStorage.getItem('orderData')) || {};
-    const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const orderData = JSON.parse(localStorage.getItem('orderData')) || null;
+    const cart = JSON.parse(localStorage.getItem('cart')) || JSON.parse(localStorage.getItem('cartItems')) || [];
     const total = parseFloat(localStorage.getItem('cartTotal')) || 0;
 
-    // Display order details
+    // Display order details (if orderData available) or show a customer form if missing
     function displayOrderDetails() {
-      // Customer Information
-      document.getElementById('display-name').textContent = orderData.customerName || 'Not provided';
-      document.getElementById('display-email').textContent = orderData.customerEmail || 'Not provided';
-      document.getElementById('display-phone').textContent = orderData.customerPhone || 'Not provided';
-      document.getElementById('display-address').textContent = orderData.deliveryAddress || 'Not provided';
-      document.getElementById('display-notes').textContent = orderData.specialNotes || 'None';
-
-      // Cart Items
-      const cartList = document.getElementById("cart-items");
       const totalDisplay = document.getElementById("total");
-      
+
+      // If we have orderData with customer info, show it; otherwise render inputs to capture it here
+      if (orderData && orderData.customerEmail) {
+        document.getElementById('display-name').textContent = orderData.customerName || 'Not provided';
+        document.getElementById('display-email').textContent = orderData.customerEmail || 'Not provided';
+        document.getElementById('display-phone').textContent = orderData.customerPhone || 'Not provided';
+        document.getElementById('display-address').textContent = orderData.deliveryAddress || 'Not provided';
+        document.getElementById('display-notes').textContent = orderData.specialNotes || 'None';
+      } else {
+        // Create inputs inside the info grid so user can provide details here
+        const nameEl = document.getElementById('display-name');
+        const emailEl = document.getElementById('display-email');
+        const phoneEl = document.getElementById('display-phone');
+        const addrEl = document.getElementById('display-address');
+        const notesEl = document.getElementById('display-notes');
+
+        nameEl.innerHTML = '<input id="input-display-name" placeholder="Full Name" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--white);">';
+        emailEl.innerHTML = '<input id="input-display-email" placeholder="Email Address" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--white);">';
+        phoneEl.innerHTML = '<input id="input-display-phone" placeholder="Phone Number" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--white);">';
+        addrEl.innerHTML = '<textarea id="input-display-address" placeholder="Delivery Address" rows="2" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--white);"></textarea>';
+        notesEl.innerHTML = '<textarea id="input-display-notes" placeholder="Special Notes (optional)" rows="1" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--white);"></textarea>';
+      }
+
+      // Render cart items
+      const cartList = document.getElementById("cart-items");
       cartList.innerHTML = "";
       if (cart.length > 0) {
         cart.forEach(item => {
@@ -560,20 +575,41 @@
       } else {
         cartList.innerHTML = '<div style="text-align: center; color: var(--text-light); padding: 20px;">No items in cart</div>';
       }
-      
+
       totalDisplay.textContent = `GH₵${total.toFixed(2)}`;
     }
 
     // Paystack Payment
     document.getElementById('paystack-btn').addEventListener('click', () => {
-      if (!orderData.customerEmail) {
-        alert("Customer information missing. Please go back and fill the form.");
-        return;
+      // Determine customer info (either from orderData or inputs on this page)
+      let finalOrder = orderData ? {...orderData} : { customerName: '', customerEmail: '', customerPhone: '', deliveryAddress: '', specialNotes: '' };
+
+      if (!finalOrder.customerEmail) {
+        // collect from inputs
+        const name = document.getElementById('input-display-name') ? document.getElementById('input-display-name').value.trim() : '';
+        const email = document.getElementById('input-display-email') ? document.getElementById('input-display-email').value.trim() : '';
+        const phone = document.getElementById('input-display-phone') ? document.getElementById('input-display-phone').value.trim() : '';
+        const address = document.getElementById('input-display-address') ? document.getElementById('input-display-address').value.trim() : '';
+        const notes = document.getElementById('input-display-notes') ? document.getElementById('input-display-notes').value.trim() : '';
+
+        if (!name || !email || !phone || !address) {
+          alert('Please fill in your name, email, phone and delivery address.');
+          return;
+        }
+
+        finalOrder.customerName = name;
+        finalOrder.customerEmail = email;
+        finalOrder.customerPhone = phone;
+        finalOrder.deliveryAddress = address;
+        finalOrder.specialNotes = notes || 'None';
+
+        // Persist the order data for potential later use
+        localStorage.setItem('orderData', JSON.stringify(finalOrder));
       }
 
       const handler = PaystackPop.setup({
         key: 'pk_live_6b1543665f3fd0ec08938ff844c42f571fc6d089',
-        email: orderData.customerEmail,
+        email: finalOrder.customerEmail,
         amount: total * 100,
         currency: "GHS",
         ref: 'OD' + Math.floor(Math.random() * 1000000000 + 1),
@@ -582,17 +618,17 @@
             {
               display_name: "Customer Name",
               variable_name: "customer_name",
-              value: orderData.customerName
+              value: finalOrder.customerName
             },
             {
               display_name: "Phone",
               variable_name: "phone",
-              value: orderData.customerPhone
+              value: finalOrder.customerPhone
             },
             {
               display_name: "Delivery Address",
               variable_name: "delivery_address",
-              value: orderData.deliveryAddress
+              value: finalOrder.deliveryAddress
             },
             {
               display_name: "Order Items",
@@ -607,17 +643,18 @@
           successMessage.style.display = 'block';
           successMessage.innerHTML = `
             <h3>✅ Payment Successful!</h3>
-            <p>Thank you ${orderData.customerName}! Your order has been received.</p>
+            <p>Thank you ${finalOrder.customerName}! Your order has been received.</p>
             <p><strong>Reference:</strong> ${response.reference}</p>
-            <p>We will call you at ${orderData.customerPhone} to confirm delivery.</p>
+            <p>We will call you at ${finalOrder.customerPhone} to confirm delivery.</p>
           `;
           
           // Send notification
-          sendOrderNotification(response);
+          sendOrderNotification(response, finalOrder);
           
           // Clear storage and redirect
           setTimeout(() => {
             localStorage.removeItem("orderData");
+            localStorage.removeItem("cart");
             localStorage.removeItem("cartItems");
             localStorage.removeItem("cartTotal");
             window.location.href = "payment-success.html?reference=" + response.reference;
@@ -632,13 +669,13 @@
     });
 
     // Send order notification
-    function sendOrderNotification(paymentResponse) {
+    function sendOrderNotification(paymentResponse, finalOrder) {
       const orderDetails = `
 NEW ORDER - GH₵${total.toFixed(2)}
 
-Customer: ${orderData.customerName}
-Phone: ${orderData.customerPhone}
-Address: ${orderData.deliveryAddress}
+Customer: ${finalOrder.customerName}
+Phone: ${finalOrder.customerPhone}
+Address: ${finalOrder.deliveryAddress}
 
 Items:
 ${cart.map(item => `${item.quantity}x ${item.name} - GH₵${item.totalPrice}`).join('\n')}
@@ -650,7 +687,8 @@ Reference: ${paymentResponse.reference}
     }
 
     // Initialize
-    if (!orderData.customerEmail) {
+    // If there is no orderData but a cart exists, show inputs so the user can enter customer info here
+    if ((!orderData || !orderData.customerEmail) && cart.length === 0) {
       alert("No order data found. Please start your order from the menu page.");
       window.location.href = "menu.html";
     } else {
