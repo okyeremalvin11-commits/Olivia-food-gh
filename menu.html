@@ -6,8 +6,166 @@
   <title>Olivia Delish Menu</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ====== NAVBAR STYLES ====== */
+    nav {
+      background: var(--dark-light);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--secondary);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .nav-logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--secondary);
+    }
+
+    /* ====== BREADCRUMB ====== */
+    .breadcrumb {
+      max-width: 1200px;
+      margin: 15px auto;
+      padding: 0 20px;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    .breadcrumb a {
+      color: var(--secondary);
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* ====== FOOTER STYLES ====== */
+    footer {
+      background: var(--dark-light);
+      color: var(--text-light);
+      padding: 40px 20px;
+      margin-top: 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    .footer-section h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section ul a:hover {
+      color: var(--secondary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        gap: 10px;
+        font-size: 0.9rem;
+      }
+      .breadcrumb {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="Olivia Delish Logo">
+        Olivia Delish
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html" class="active">Menu</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> / Menu
+  </div>
+
   <!-- Logo and Header -->
   <header>
     <img src="images/logo.png" alt="Olivia Delish Logo" class="logo">
@@ -29,6 +187,69 @@
             <div class="description">Reddish-brown rice with soaked sorghum leaves, beans, soft garri, fried plantain, boiled egg, shito, and fresh salad.</div>
             <div class="price">GH₵12</div>
             <button class="add-to-cart">Add to Cart</button>
+            <button class="customization-toggle">+ Add Extras</button>
+            
+            <!-- Customization Panel -->
+            <div class="customization-panel">
+              <div class="customization-category">
+                <h4>🍖 Choose a Meat</h4>
+                <div class="addon-options" data-category="meat">
+                  <div class="addon-item" data-name="Cow Meat" data-price="10">
+                    <span class="addon-name">Cow Meat</span>
+                    <span class="addon-price">+GH₵10</span>
+                  </div>
+                  <div class="addon-item" data-name="Chicken" data-price="12">
+                    <span class="addon-name">Chicken</span>
+                    <span class="addon-price">+GH₵12</span>
+                  </div>
+                  <div class="addon-item" data-name="Pola Fish" data-price="15">
+                    <span class="addon-name">Pola Fish</span>
+                    <span class="addon-price">+GH₵15</span>
+                  </div>
+                  <div class="addon-item" data-name="Egg" data-price="5">
+                    <span class="addon-name">Egg</span>
+                    <span class="addon-price">+GH₵5</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="customization-category">
+                <h4>🍲 Choose a Stew</h4>
+                <div class="addon-options" data-category="stew">
+                  <div class="addon-item" data-name="Beans Stew" data-price="12">
+                    <span class="addon-name">Beans Stew</span>
+                    <span class="addon-price">+GH₵12</span>
+                  </div>
+                  <div class="addon-item" data-name="Egushie Stew" data-price="15">
+                    <span class="addon-name">Egushie</span>
+                    <span class="addon-price">+GH₵15</span>
+                  </div>
+                  <div class="addon-item" data-name="Kontomire Stew" data-price="14">
+                    <span class="addon-name">Kontomire</span>
+                    <span class="addon-price">+GH₵14</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="customization-category">
+                <h4>🥗 Add a Side</h4>
+                <div class="addon-options" data-category="side">
+                  <div class="addon-item" data-name="Garri" data-price="5">
+                    <span class="addon-name">Garri</span>
+                    <span class="addon-price">+GH₵5</span>
+                  </div>
+                  <div class="addon-item" data-name="Mix Salad" data-price="1">
+                    <span class="addon-name">Mix Salad</span>
+                    <span class="addon-price">+GH₵1</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="selected-addons" id="selected-addons-preview" style="display: none;">
+                <h5>Your Extras:</h5>
+                <div id="addons-list"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -300,6 +521,40 @@
     </section>
 
   </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Our Menu</a></li>
+          <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Our Meals</h3>
+        <ul>
+          <li><a href="#">Main Meals</a></li>
+          <li><a href="#">Special Combos</a></li>
+          <li><a href="#">Available Meats</a></li>
+          <li><a href="#">Stews & Sides</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="tel:+233592303936">📞 +233 592 303 936</a></li>
+          <li><a href="#">📷 Instagram</a></li>
+          <li><a href="#">💬 WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Olivia Delish Delivery. All rights reserved. | Authentic Ghanaian Meals</p>
+    </div>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>

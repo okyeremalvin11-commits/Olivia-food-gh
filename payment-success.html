@@ -30,6 +30,108 @@
     line-height: 1.6;
     text-align: center;
   }
+
+  /* ====== NAVBAR STYLES ====== */
+  nav {
+    background: var(--dark-light);
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .nav-logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--secondary);
+  }
+
+  /* ====== FOOTER STYLES ====== */
+  footer {
+    background: var(--dark-light);
+    color: var(--text-light);
+    padding: 40px 20px;
+    margin-top: 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+  }
+
+  .footer-section h3 {
+    color: var(--secondary);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+  }
+
+  .footer-section ul {
+    list-style: none;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 10px;
+  }
+
+  .footer-section ul a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-section ul a:hover {
+    color: var(--secondary);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
   
   .success-container {
     max-width: 600px;
@@ -100,6 +202,69 @@
   
   .summary-item:last-child {
     border-bottom: none;
+  }
+  
+  /* VERIFICATION SECTION - UPDATED */
+  .verification-card {
+    background: linear-gradient(135deg, rgba(255, 209, 102, 0.2) 0%, rgba(255, 107, 53, 0.2) 100%);
+    padding: 30px;
+    border-radius: 20px;
+    margin: 25px 0;
+    border: 2px solid var(--secondary);
+    text-align: center;
+  }
+  
+  .verification-card h2 {
+    color: var(--secondary);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+  }
+  
+  .verification-card p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: var(--white);
+  }
+  
+  .contact-urgent {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border-left: 4px solid var(--accent);
+  }
+  
+  .phone-number-large {
+    font-size: 2rem;
+    color: var(--secondary);
+    font-weight: bold;
+    margin: 15px 0;
+    display: block;
+    text-decoration: none;
+  }
+  
+  .phone-number-large:hover {
+    color: var(--primary);
+  }
+  
+  .call-button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 10px 0;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .call-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
   }
   
   .steps {
@@ -223,10 +388,28 @@
       text-align: center;
       gap: 10px;
     }
+    .phone-number-large {
+      font-size: 1.5rem;
+    }
   }
 </style>
 </head>
 <body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="Olivia Delish Logo">
+        Olivia Delish
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="success-container">
     <!-- Success Animation -->
     <div class="success-animation">
@@ -258,6 +441,24 @@
       </div>
     </div>
 
+    <!-- VERIFICATION SECTION - IMPORTANT -->
+    <div class="verification-card">
+      <h2>📞 VERIFY YOUR ORDER</h2>
+      <p><strong>Please call us immediately to confirm your order details and delivery address!</strong></p>
+      
+      <div class="contact-urgent">
+        <h3 style="color: var(--secondary); margin-bottom: 15px;">Call Us Now:</h3>
+        <a href="tel:+233592303936" class="phone-number-large">+233 592 303 936</a>
+        <br>
+        <a href="tel:+233592303936" class="call-button">
+          📞 Call Now to Verify
+        </a>
+        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">
+          We need to confirm your order before we start cooking!
+        </p>
+      </div>
+    </div>
+
     <!-- Next Steps -->
     <div class="success-card">
       <h2>📞 What's Next?</h2>
@@ -265,15 +466,15 @@
         <div class="step">
           <div class="step-icon">1</div>
           <div class="step-content">
-            <h3>We'll Call You</h3>
-            <p>We will call you shortly to confirm your order and delivery details</p>
+            <h3>Call to Verify</h3>
+            <p><strong>IMPORTANT:</strong> Call us now to confirm your order details and delivery address</p>
           </div>
         </div>
         <div class="step">
           <div class="step-icon">2</div>
           <div class="step-content">
             <h3>Food Preparation</h3>
-            <p>Our chefs are now preparing your fresh meal with quality ingredients</p>
+            <p>Once verified, our chefs will start preparing your fresh meal</p>
           </div>
         </div>
         <div class="step">
@@ -286,16 +487,19 @@
       </div>
     </div>
 
-    <!-- Contact Info -->
+    <!-- Additional Contact Info -->
     <div class="contact-info">
-      <h3>Need Help?</h3>
+      <h3>Need Help? Contact Us!</h3>
       <div class="contact-item">
         <span class="contact-icon">📞</span>
         <div>
-          <strong>Call Us Directly</strong><br>
+          <strong>Phone/WhatsApp</strong><br>
           <a href="tel:+233592303936" style="color: var(--secondary); text-decoration: none; font-size: 1.1rem;">+233 592 303 936</a>
         </div>
       </div>
+      <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">
+        Available 7 days a week • 8:00 AM - 10:00 PM
+      </p>
     </div>
 
     <!-- Action Buttons -->
@@ -311,6 +515,73 @@
     <!-- Thank You -->
     <div class="thank-you">
       <p>Thank you for choosing <strong>Olivia Delish</strong>! ❤</p>
-      <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-light);">We appreciate your business and look forward to serving you again!</p>
+      <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-light);">
+        We appreciate your business and look forward to serving you again!
+      </p>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Our Menu</a></li>
+          <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Our Meals</h3>
+        <ul>
+          <li><a href="menu.html">Main Meals</a></li>
+          <li><a href="menu.html">Special Combos</a></li>
+          <li><a href="menu.html">Available Meats</a></li>
+          <li><a href="menu.html">Stews & Sides</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="tel:+233592303936">📞 +233 592 303 936</a></li>
+          <li><a href="#">📷 Instagram</a></li>
+          <li><a href="#">💬 WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Olivia Delish Delivery. All rights reserved. | Authentic Ghanaian Meals</p>
+    </div>
+  </footer>
+
+  <script>
+    // Get reference from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const reference = urlParams.get('reference') || 'N/A';
+    
+    // Display reference and time
+    document.getElementById('reference').textContent = reference;
+    document.getElementById('order-time').textContent = new Date().toLocaleString('en-GB');
+
+    // Auto-scroll to top for better experience
+    window.scrollTo(0, 0);
+
+    // Show confirmation alert with phone number
+    setTimeout(() => {
+      alert('🎉 Thank you for your order!\n\n📞 PLEASE CALL US TO VERIFY: +233 592 303 936\n\nWe need to confirm your order details before we start cooking.');
+    }, 1000);
+
+    // Add click to call functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const callButtons = document.querySelectorAll('.call-button, .phone-number-large');
+      callButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          if(this.tagName === 'A') return; // Allow default behavior for links
+          window.location.href = 'tel:+233592303936';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

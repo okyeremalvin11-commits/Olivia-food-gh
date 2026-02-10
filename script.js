@@ -1,5 +1,6 @@
 // ====== Cart Setup ======
 let cart = [];
+let mealAddons = {}; // Track addons for each meal item
 
 // Select DOM elements
 const cartItemsEl = document.getElementById('cart-items');
@@ -11,39 +12,148 @@ const successMessage = document.getElementById('success-message');
 // Hide success message initially
 successMessage.style.display = 'none';
 
+// ====== Customization Toggle ======
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle customization toggle buttons
+  const toggleButtons = document.querySelectorAll('.customization-toggle');
+  
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const panel = button.nextElementSibling;
+      if (panel && panel.classList.contains('customization-panel')) {
+        panel.classList.toggle('show');
+        button.textContent = panel.classList.contains('show') ? '- Hide Extras' : '+ Add Extras';
+      }
+    });
+  });
+
+  // Handle addon selection
+  const addonItems = document.querySelectorAll('.addon-item');
+  
+  addonItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      const category = item.closest('.addon-options').getAttribute('data-category');
+      const mealItem = item.closest('.menu-item');
+      const mealItemId = mealItem ? mealItem.dataset.itemId : null;
+      
+      // Unselect other items in same category
+      const category_items = item.closest('.addon-options').querySelectorAll('.addon-item');
+      category_items.forEach(i => {
+        if (i.getAttribute('data-category') !== category) return;
+        i.classList.remove('selected');
+      });
+      
+      // Toggle selection
+      item.classList.toggle('selected');
+      
+      // Update preview
+      updateAddonPreview(mealItem);
+    });
+  });
+
+  updateCart();
+});
+
+// ====== Update Addon Preview ======
+function updateAddonPreview(mealItem) {
+  const panel = mealItem.querySelector('.customization-panel');
+  const previewDiv = panel.querySelector('#selected-addons-preview');
+  const addonsList = panel.querySelector('#addons-list');
+  
+  const selectedAddons = panel.querySelectorAll('.addon-item.selected');
+  
+  addonsList.innerHTML = '';
+  let hasMore = false;
+  
+  selectedAddons.forEach(addon => {
+    const tag = document.createElement('span');
+    tag.className = 'addon-tag';
+    tag.textContent = addon.getAttribute('data-name');
+    addonsList.appendChild(tag);
+    hasMore = true;
+  });
+  
+  previewDiv.style.display = hasMore ? 'block' : 'none';
+}
+
+// ====== Get Selected Addons ======
+function getSelectedAddons(mealItem) {
+  const panel = mealItem.querySelector('.customization-panel');
+  if (!panel) return { addons: [], extraCost: 0, description: '' };
+  
+  const selectedAddons = panel.querySelectorAll('.addon-item.selected');
+  const addons = [];
+  let extraCost = 0;
+  
+  selectedAddons.forEach(addon => {
+    const name = addon.getAttribute('data-name');
+    const price = parseFloat(addon.getAttribute('data-price'));
+    addons.push(name);
+    extraCost += price;
+  });
+  
+  const description = addons.length > 0 ? ' + ' + addons.join(', ') : '';
+  
+  return { addons, extraCost, description };
+}
+
 // ====== Add to Cart ======
 const addButtons = document.querySelectorAll('.add-to-cart');
 
 addButtons.forEach(button => {
   button.addEventListener('click', () => {
     const menuItem = button.closest('.menu-item');
-    const name = menuItem.querySelector('.label').innerText;
+    const baseLabel = menuItem.querySelector('.label').innerText;
     const priceText = menuItem.querySelector('.price').innerText;
-    const price = parseFloat(priceText.replace('GH₵', ''));
+    const basePrice = parseFloat(priceText.replace('GH₵', ''));
+    
+    // Get selected addons
+    const { addons, extraCost, description } = getSelectedAddons(menuItem);
+    
+    // Create complete item name with addons
+    const fullName = baseLabel + description;
+    const totalPrice = basePrice + extraCost;
     
     // Add item to cart with proper structure
-    const existingItem = cart.find(item => item.name === name);
+    const existingItem = cart.find(item => item.name === fullName);
     if (existingItem) {
       existingItem.quantity += 1;
-      existingItem.totalPrice = existingItem.quantity * price;
+      existingItem.totalPrice = existingItem.quantity * totalPrice;
     } else {
       cart.push({ 
-        name, 
-        price,
+        name: fullName,
+        basePrice: basePrice,
+        extraCost: extraCost,
+        price: totalPrice,
         quantity: 1,
-        totalPrice: price
+        totalPrice: totalPrice,
+        addons: addons
       });
     }
     
     // Update cart display
     updateCart();
     
+    // Reset customization panel
+    const panel = menuItem.querySelector('.customization-panel');
+    if (panel) {
+      panel.querySelectorAll('.addon-item').forEach(addon => addon.classList.remove('selected'));
+      panel.querySelectorAll('#selected-addons-preview').forEach(preview => preview.style.display = 'none');
+      panel.querySelectorAll('#addons-list').forEach(list => list.innerHTML = '');
+      const toggleBtn = menuItem.querySelector('.customization-toggle');
+      if (toggleBtn) {
+        toggleBtn.textContent = '+ Add Extras';
+        panel.classList.remove('show');
+      }
+    }
+    
     // Show success feedback
     button.textContent = 'Added!';
-    button.style.background = 'var(--yellow)';
+    button.style.background = 'var(--accent)';
     setTimeout(() => {
       button.textContent = 'Add to Cart';
-      button.style.background = 'var(--orange)';
+      button.style.background = '';
     }, 1000);
   });
 });
@@ -76,12 +186,12 @@ function updateCart() {
   const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
   totalEl.innerText = `Total: GH₵${total.toFixed(2)}`;
   
-  // Show/hide cart section based on items
-  const cartSection = document.querySelector('.cart-items');
+  // Show/hide entire cart section based on items
+  const cartSection = document.querySelector('.cart-section');
   if (cart.length === 0) {
-    cartSection.style.display = 'none';
+    cartSection.classList.remove('show');
   } else {
-    cartSection.style.display = 'block';
+    cartSection.classList.add('show');
   }
 }
 
